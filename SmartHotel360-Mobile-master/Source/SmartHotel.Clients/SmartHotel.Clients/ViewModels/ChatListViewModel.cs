@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -150,13 +149,13 @@ namespace SmartHotel.Clients.Core.ViewModels
         Task NextAsync()
         {
             var chat = chats.FirstOrDefault(c => c.ToString().Equals(Suggestion));
-            return NavigationService.NavigateToAsync<ChatViewModel>();
-            //if (chat != null)
-            //{
-            //    return NavigationService.NavigateToAsync<ChatViewModel>(chat);                
-            //}
+            //return NavigationService.NavigateToAsync<ChatViewModel>();
+            if (chat != null)
+            {
+                return NavigationService.NavigateToAsync<ChatViewModel>(chat);                
+            }
             // just return Task, but have to provide an argument because there is no overload
-            //return Task.FromResult(true);
+            return Task.FromResult(true);
         }
     }
 }

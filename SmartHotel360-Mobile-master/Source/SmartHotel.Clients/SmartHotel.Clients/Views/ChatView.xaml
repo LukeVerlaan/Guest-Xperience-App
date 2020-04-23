@@ -10,24 +10,153 @@
     xmlns:extensions="clr-namespace:SmartHotel.Clients.Core.MarkupExtensions"
     x:Class="SmartHotel.Clients.Core.Views.ChatView" 
     utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
-    <ContentPage.Triggers>
-        <EventTrigger Event="Appearing">
-            <xamanimation:BeginAnimation 
-                Animation="{StaticResource SuggestionsTranslationAnimation}" />
-        </EventTrigger>
-    </ContentPage.Triggers>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="EntryTextColor">#48959B</Color>
+
+            <Style x:Key="ChatTextStyle" 
+                   TargetType="Label"
+                   BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" 
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" 
+                        Value="{StaticResource BigSize}" />
+                <Setter Property="VerticalOptions" 
+                        Value="End" />
+                <Setter Property="Margin" 
+                        Value="48, 0, 0, 12" />
+            </Style>
+
+            <Style x:Key="ChatBoxStyle"
+                   TargetType="ContentView">
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="HorizontalOptions"
+                        Value="FillAndExpand" />
+                <Setter Property="VerticalOptions"
+                        Value="FillAndExpand" />
+                <Setter Property="Padding">
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android, iOS" Value="10, 0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="EntryFrameStyle" 
+                   TargetType="Frame">
+                <Setter Property="Margin"
+                    Value="0, 0, 0, 0" />
+                <Setter Property="HasShadow"
+                    Value="True" />
+                <Setter Property="CornerRadius"
+                    Value="4" />
+                <Setter Property="BackgroundColor" 
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="VerticalOptions"
+                        Value="Fill" />
+                <Setter Property="Padding">
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android, iOS" Value="10, 0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="EntryTextStyle" 
+                   TargetType="Entry">
+                <Setter Property="FontFamily"
+                    Value="{StaticResource PoppinsRegular}" />
+                <Setter Property="FontSize"
+                    Value="{StaticResource MidMediumSize}" />
+                <Setter Property="BackgroundColor" 
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="TextColor" 
+                        Value="{StaticResource EntryTextColor}" />
+                <Setter Property="HorizontalOptions" 
+                        Value="Fill" />
+                <Setter Property="Opacity" 
+                        Value="1" />
+            </Style>
+
+            <Style x:Key="SendButtonStyle" 
+                   TargetType="Button">
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource OrangeColor}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="CornerRadius"
+                        Value="4" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <Grid>
-            <Image 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <!-- Background Image -->
+                <Image 
+                    Aspect="AspectFill"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="Android, iOS" Value="bg_splash" />
+                            <On Platform="UWP" Value="Assets/bg_splash.png" />
+                        </OnPlatform>
+                    </Image.Source>
+                </Image>
+            </Grid>
+
+            <!-- Content -->
+            <Grid Grid.Row="0" 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand" 
+                Margin="10,10,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="12*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Label
                     Grid.Row="0"
-                    Aspect="AspectFill">
-                <Image.Source>
-                    <OnPlatform x:TypeArguments="ImageSource">
-                        <On Platform="Android, iOS" Value="bg_splash" />
-                        <On Platform="UWP" Value="Assets/bg_splash.png" />
-                    </OnPlatform>
-                </Image.Source>
-            </Image>
+                    BackgroundColor="Transparent"
+                    Text="{extensions:Translate Chats}"
+                    Style="{StaticResource ChatTextStyle}"/>
+
+                <!-- ChatBox -->
+                <ContentView 
+                    Grid.Row="1"
+                    Style="{StaticResource ChatBoxStyle}"/>
+
+                <!-- Entry box -->
+                <Grid Grid.Row="2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ctrls:ButtonFrame  
+                        Grid.Column="0"                    
+                        Style="{StaticResource EntryFrameStyle}">
+
+                        <ctrls:ExtendedEntry
+                            Text="{Binding Message, Mode=TwoWay}"
+                            Style="{StaticResource EntryTextStyle}" 
+                            LineColor="{StaticResource WhiteColor}"/>
+                    </ctrls:ButtonFrame>
+                    <Button Grid.Column ="1"
+                            Text="Send" 
+                            Style="{StaticResource SendButtonStyle}"/>
+                </Grid>
+                
+            </Grid>
         </Grid>
+        
     </ContentPage.Content>
 </ContentPage>
