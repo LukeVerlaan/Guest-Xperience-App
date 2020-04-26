@@ -1,4 +1,6 @@
-﻿namespace SmartHotel.Clients.Core.Models
+﻿using System.Collections.Generic;
+
+namespace SmartHotel.Clients.Core.Models
 {
     public class Chat
     {
@@ -6,7 +8,7 @@
 
         public string Name { get; set; }
 
-        //public List<Messages> Messages { get; set; }
+        public List<Message> Messages { get; set; }
 
         public override string ToString() => $"{Name}";
 

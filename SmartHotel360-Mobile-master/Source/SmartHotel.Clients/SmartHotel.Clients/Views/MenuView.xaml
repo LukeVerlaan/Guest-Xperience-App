@@ -49,7 +49,7 @@
                     Aspect="AspectFill"
                     Source="{Binding UserAvatar}"
                     CacheType="Disk"
-                    CacheDuration="30">>
+                    CacheDuration="30">
                     <ffimageloading:CachedImage.LoadingPlaceholder>
                         <OnPlatform x:TypeArguments="ImageSource">
                             <On Platform="Android, iOS" Value="avatar" />

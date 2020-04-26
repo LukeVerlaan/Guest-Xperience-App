@@ -7,13 +7,15 @@
     xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation" 
     xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core"
     xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core"      
-    xmlns:extensions="clr-namespace:SmartHotel.Clients.Core.MarkupExtensions"
+    xmlns:extensions="clr-namespace:SmartHotel.Clients.Core.MarkupExtensions" 
+    xmlns:local="clr-namespace:SmartHotel.Clients.Core.Helpers"
     x:Class="SmartHotel.Clients.Core.Views.ChatView" 
     utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
 
             <Color x:Key="EntryTextColor">#48959B</Color>
+            <local:ChatTemplateSelector x:Key="MessageTemplateSelector"/>
 
             <Style x:Key="ChatTextStyle" 
                    TargetType="Label"
@@ -29,19 +31,20 @@
             </Style>
 
             <Style x:Key="ChatBoxStyle"
-                   TargetType="ContentView">
+                   TargetType="ListView">
                 <Setter Property="BackgroundColor"
                         Value="{StaticResource WhiteColor}" />
                 <Setter Property="HorizontalOptions"
                         Value="FillAndExpand" />
                 <Setter Property="VerticalOptions"
                         Value="FillAndExpand" />
-                <Setter Property="Padding">
-                    <OnPlatform x:TypeArguments="Thickness">
-                        <On Platform="Android, iOS" Value="10, 0" />
-                    </OnPlatform>
-                </Setter>
-            </Style>
+                <Setter Property="Margin"
+                        Value="0" />
+                <Setter Property="HasUnevenRows"
+                        Value="True" />
+                <Setter Property="SeparatorColor"
+                        Value="Transparent" />
+            </Style> 
 
             <Style x:Key="EntryFrameStyle" 
                    TargetType="Frame">
@@ -64,10 +67,12 @@
 
             <Style x:Key="EntryTextStyle" 
                    TargetType="Entry">
+                <Setter Property="Keyboard"
+                        Value="Chat" />
                 <Setter Property="FontFamily"
-                    Value="{StaticResource PoppinsRegular}" />
+                        Value="{StaticResource PoppinsRegular}" />
                 <Setter Property="FontSize"
-                    Value="{StaticResource MidMediumSize}" />
+                        Value="{StaticResource MidMediumSize}" />
                 <Setter Property="BackgroundColor" 
                         Value="{StaticResource WhiteColor}" />
                 <Setter Property="TextColor" 
@@ -126,13 +131,15 @@
                 <Label
                     Grid.Row="0"
                     BackgroundColor="Transparent"
-                    Text="{extensions:Translate Chats}"
+                    Text="{Binding Chat.Name}"
                     Style="{StaticResource ChatTextStyle}"/>
 
                 <!-- ChatBox -->
-                <ContentView 
-                    Grid.Row="1"
-                    Style="{StaticResource ChatBoxStyle}"/>
+                <ListView Grid.Row="1" 
+                 ItemTemplate="{StaticResource MessageTemplateSelector}" 
+                 ItemsSource="{Binding Messages}" 
+                 Style="{StaticResource ChatBoxStyle}">
+                </ListView>
 
                 <!-- Entry box -->
                 <Grid Grid.Row="2" >
@@ -146,13 +153,15 @@
                         Style="{StaticResource EntryFrameStyle}">
 
                         <ctrls:ExtendedEntry
-                            Text="{Binding Message, Mode=TwoWay}"
+                            Text="{Binding TextToSend, Mode=TwoWay}"
                             Style="{StaticResource EntryTextStyle}" 
                             LineColor="{StaticResource WhiteColor}"/>
                     </ctrls:ButtonFrame>
                     <Button Grid.Column ="1"
                             Text="Send" 
-                            Style="{StaticResource SendButtonStyle}"/>
+                            Style="{StaticResource SendButtonStyle}"
+                            Command="{Binding OnSendCommand}"
+                            />
                 </Grid>
                 
             </Grid>
