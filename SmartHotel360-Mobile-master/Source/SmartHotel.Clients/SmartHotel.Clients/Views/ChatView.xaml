@@ -153,7 +153,7 @@
                         Style="{StaticResource EntryFrameStyle}">
 
                         <ctrls:ExtendedEntry
-                            Text="{Binding TextToSend, Mode=TwoWay}"
+                            Text="{Binding TextToSend}"
                             Style="{StaticResource EntryTextStyle}" 
                             LineColor="{StaticResource WhiteColor}"/>
                     </ctrls:ButtonFrame>
