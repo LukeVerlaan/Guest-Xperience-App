@@ -22,7 +22,7 @@ namespace SmartHotel.Services.Hotels.Controllers
         public async Task<ActionResult> Get(string name = "")
         {
             var chats = string.IsNullOrEmpty(name) ?
-                await _chatsQueries.GetDefaultCities() :
+                await _chatsQueries.GetDefaultChats() :
                 await _chatsQueries.Get(name);
 
             if (chats.Count() == 0)

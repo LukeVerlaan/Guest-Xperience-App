@@ -13,6 +13,9 @@
                    FontSize="10" />
             <Label Text="{Binding Text}"
                    TextColor="{StaticResource BlackColor}" />
+            <Label Text="{Binding SendTime}"
+                   TextColor="{StaticResource BackgroundColor}" 
+                   FontSize="10" />
         </StackLayout>
     </Frame>
 </ViewCell>

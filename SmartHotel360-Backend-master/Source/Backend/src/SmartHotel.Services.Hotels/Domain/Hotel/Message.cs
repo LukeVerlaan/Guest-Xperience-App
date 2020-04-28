@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace SmartHotel.Clients.Core.Models
+namespace SmartHotel.Services.Hotels.Domain.Hotel
 {
     public class Message
     {

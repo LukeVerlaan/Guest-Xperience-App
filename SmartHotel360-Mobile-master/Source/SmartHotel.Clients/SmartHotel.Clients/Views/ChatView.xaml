@@ -137,7 +137,7 @@
                 <!-- ChatBox -->
                 <ListView Grid.Row="1" 
                  ItemTemplate="{StaticResource MessageTemplateSelector}" 
-                 ItemsSource="{Binding Messages}" 
+                 ItemsSource="{Binding Chat.Messages}" 
                  Style="{StaticResource ChatBoxStyle}">
                 </ListView>
 
