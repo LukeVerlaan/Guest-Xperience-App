@@ -66,7 +66,25 @@
                     Text="{extensions:Translate Info}"
                     Style="{StaticResource InfoTextStyle}"/>
 
-                
+                <Image 
+                    Grid.Row="1"
+                    Aspect="Fill"
+                    HeightRequest="144"
+                    WidthRequest="144"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="Android, iOS" Value="icon" />
+                            <On Platform="UWP" Value="Assets/icon.png" />
+                        </OnPlatform>
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SendToWebsite}" CommandParameter="https://s-bit.nl/"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+
 
             </Grid>
             
