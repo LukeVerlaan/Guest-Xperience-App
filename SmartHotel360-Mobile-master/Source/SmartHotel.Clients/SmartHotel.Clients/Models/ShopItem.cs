@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace SmartHotel.Services.Hotels.Domain.Hotel
+namespace SmartHotel.Clients.Core.Models
 {
-    public class Item
+    public class ShopItem
     {
         public int Id { get; set; }
         public int ShopId { get; set; }

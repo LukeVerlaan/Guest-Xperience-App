@@ -26,8 +26,6 @@ namespace SmartHotel.Clients.Core.Services.Hotel
             return requestService.GetAsync<IEnumerable<City>>(uri);
         }
 
-
-        // Add Chats to API
         public Task<IEnumerable<Chat>> GetChatsAsync()
         {
             var builder = new UriBuilder(AppSettings.HotelsEndpoint);
@@ -36,6 +34,16 @@ namespace SmartHotel.Clients.Core.Services.Hotel
             var uri = builder.ToString();
 
             return requestService.GetAsync<IEnumerable<Chat>>(uri);
+        }
+
+        public Task<IEnumerable<Shop>> GetShopsAsync()
+        {
+            var builder = new UriBuilder(AppSettings.HotelsEndpoint);
+            builder.AppendToPath("shops");
+
+            var uri = builder.ToString();
+
+            return requestService.GetAsync<IEnumerable<Shop>>(uri);
         }
 
         public Task<IEnumerable<Models.Hotel>> SearchAsync(int cityId)

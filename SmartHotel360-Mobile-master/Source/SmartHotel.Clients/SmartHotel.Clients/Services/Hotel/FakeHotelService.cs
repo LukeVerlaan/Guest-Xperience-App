@@ -51,6 +51,25 @@ namespace SmartHotel.Clients.Core.Services.Hotel
             }
         };
 
+        static readonly List<Shop> shops = new List<Shop>
+        {
+            new Shop
+            {
+                Id = 1,
+                Name = "Jewelz"
+            },
+            new Shop
+            {
+                Id = 2,
+                Name = "Clothes"
+            },
+            new Shop
+            {
+                Id = 3,
+                Name = "Souvenir"
+            }
+        };
+
         static List<Models.Hotel> hotels = new List<Models.Hotel>
         {
             new Models.Hotel
@@ -208,6 +227,12 @@ namespace SmartHotel.Clients.Core.Services.Hotel
             await Task.Delay(500);
 
             return chats;
+        }
+        public async Task<IEnumerable<Shop>> GetShopsAsync()
+        {
+            await Task.Delay(500);
+
+            return shops;
         }
 
         public async Task<Models.Hotel> GetHotelByIdAsync(int id)

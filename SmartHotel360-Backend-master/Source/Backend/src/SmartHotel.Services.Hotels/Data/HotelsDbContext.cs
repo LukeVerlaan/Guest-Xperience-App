@@ -22,6 +22,7 @@ namespace SmartHotel.Services.Hotels.Data
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Chat> Chats { get; set; }
+        public DbSet<Shop> Shops { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
 
@@ -46,6 +47,7 @@ namespace SmartHotel.Services.Hotels.Data
 
             modelBuilder.Entity<City>().Property(c => c.Id).ValueGeneratedNever();
             modelBuilder.Entity<Chat>().Property(c => c.Id).ValueGeneratedNever();
+            modelBuilder.Entity<Shop>().Property(c => c.Id).ValueGeneratedNever();
         }
 
     }

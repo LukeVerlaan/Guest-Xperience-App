@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace SmartHotel.Clients.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ShopView : ContentPage
+    public partial class ShopListView : ContentPage
     {
-        public ShopView()
+        public ShopListView()
         {
             InitializeComponent();
         }

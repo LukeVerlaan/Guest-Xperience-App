@@ -14,19 +14,19 @@ using Xamarin.Forms;
 
 namespace SmartHotel.Clients.Core.ViewModels
 {
-    public class ChatListViewModel : ViewModelBase
+    public class ShopListViewModel : ViewModelBase
     {
         readonly IAnalyticService analyticService;
         readonly IHotelService hotelService;
         readonly IDismissKeyboardService dismissKeyboardService;
 
         string search;
-        IEnumerable<Models.Chat> chats;
+        IEnumerable<Models.Shop> shops;
         IEnumerable<string> suggestions;
         string suggestion;
         bool isNextEnabled;
 
-        public ChatListViewModel(
+        public ShopListViewModel(
             IAnalyticService analyticService,
             IHotelService hotelService)
         {
@@ -34,7 +34,7 @@ namespace SmartHotel.Clients.Core.ViewModels
             this.hotelService = hotelService;
             dismissKeyboardService = DependencyService.Get<IDismissKeyboardService>();
 
-            chats = new List<Models.Chat>();
+            shops = new List<Models.Shop>();
             suggestions = new List<string>();
         }
 
@@ -84,13 +84,13 @@ namespace SmartHotel.Clients.Core.ViewModels
             {
                 IsBusy = true;
 
-                chats = await hotelService.GetChatsAsync();
+                shops = await hotelService.GetShopsAsync();
 
-                Suggestions = new List<string>(chats.Select(c => c.ToString()));
+                Suggestions = new List<string>(shops.Select(c => c.ToString()));
             }
             catch (HttpRequestException httpEx)
             {
-                Debug.WriteLine($"[Chat Where Step] Error retrieving data: {httpEx}");
+                Debug.WriteLine($"[Shop Where Step] Error retrieving data: {httpEx}");
 
                 if (!string.IsNullOrEmpty(httpEx.Message))
                 {
@@ -102,12 +102,12 @@ namespace SmartHotel.Clients.Core.ViewModels
             }
             catch (ConnectivityException cex)
             {
-                Debug.WriteLine($"[Chat Where Step] Connectivity Error: {cex}");
+                Debug.WriteLine($"[Shop Where Step] Connectivity Error: {cex}");
                 await DialogService.ShowAlertAsync("There is no Internet conection, try again later.", "Error", "Ok");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[Chat Where Step] Error: {ex}");
+                Debug.WriteLine($"[Shop Where Step] Error: {ex}");
 
                 await DialogService.ShowAlertAsync(
                     Resources.ExceptionMessage,
@@ -127,7 +127,7 @@ namespace SmartHotel.Clients.Core.ViewModels
                 IsBusy = true;
 
                 Suggestions = new List<string>(
-                    chats.Select(c => c.ToString())
+                    shops.Select(c => c.ToString())
                            .Where(c => c.ToLowerInvariant().Contains(search.ToLowerInvariant())));
 
                 analyticService.TrackEvent("Filter", new Dictionary<string, string>
@@ -137,7 +137,7 @@ namespace SmartHotel.Clients.Core.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[Chat] Error: {ex}");
+                Debug.WriteLine($"[Booking] Error: {ex}");
                 await DialogService.ShowAlertAsync(Resources.ExceptionMessage, Resources.ExceptionTitle, Resources.DialogOk);
             }
             finally
@@ -148,10 +148,10 @@ namespace SmartHotel.Clients.Core.ViewModels
 
         Task NextAsync()
         {
-            var chat = chats.FirstOrDefault(c => c.ToString().Equals(Suggestion));
-            if (chat != null)
+            var shop = shops.FirstOrDefault(c => c.ToString().Equals(Suggestion));
+            if (shop != null)
             {
-                return NavigationService.NavigateToAsync<ChatViewModel>(chat);                
+                //return NavigationService.NavigateToAsync<ShopViewModel>(shop);
             }
             // just return Task, but have to provide an argument because there is no overload
             return Task.FromResult(true);

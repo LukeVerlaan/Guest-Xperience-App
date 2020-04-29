@@ -8,7 +8,7 @@
     xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core"
     xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core"      
     xmlns:extensions="clr-namespace:SmartHotel.Clients.Core.MarkupExtensions"
-    x:Class="SmartHotel.Clients.Core.Views.ShopView" 
+    x:Class="SmartHotel.Clients.Core.Views.ShopListView" 
     utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -102,7 +102,16 @@
                         Value="Start" />
             </Style>
 
-            
+            <Color x:Key="NextButtonColor">#BD4B14</Color>
+
+            <Style x:Key="NextTextStyle" 
+                   TargetType="Label"
+                   BasedOn="{StaticResource FiraSansSemiBoldLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
 
             <Style x:Key="SuggestionTextStyle" 
                    TargetType="Label"
@@ -129,7 +138,7 @@
     </ContentPage.Triggers>
     <ContentPage.Content>
         <Grid   
-            AutomationId="chat"
+            AutomationId="shop"
             RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -158,7 +167,7 @@
                 </Image>
                 <Label 
                     Grid.Row="0"
-                    Text="{extensions:Translate Shop}"
+                    Text="{extensions:Translate Shops}"
                     Style="{StaticResource ShopTextStyle}"/>
                 <!-- Search results -->
                 <Grid
@@ -266,7 +275,20 @@
                         Style="{StaticResource SearchTextStyle}" 
                         LineColor="{StaticResource WhiteColor}"/>
                 </ctrls:ButtonFrame>
-                
+                <!-- Next button -->
+                <Grid
+                    Grid.Row="2"  
+                    AutomationId="continue"
+                    BackgroundColor="{StaticResource NextButtonColor}"              
+                    HeightRequest="{Binding IsNextEnabled, Converter={StaticResource EnabledToHeightConverter}}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding NextCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Label   
+                        Text="{extensions:Translate NextMayus}"
+                        Style="{StaticResource NextTextStyle}"/>
+                </Grid>
             </Grid>
             <ActivityIndicator 
                 Grid.RowSpan="2"

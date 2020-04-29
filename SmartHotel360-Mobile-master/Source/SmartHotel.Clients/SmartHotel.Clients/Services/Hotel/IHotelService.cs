@@ -9,6 +9,8 @@ namespace SmartHotel.Clients.Core.Services.Hotel
 
         Task<IEnumerable<Models.Chat>> GetChatsAsync();
 
+        Task<IEnumerable<Models.Shop>> GetShopsAsync();
+
         Task<IEnumerable<Models.Hotel>> SearchAsync(int cityId);
 
         Task<IEnumerable<Models.Hotel>> SearchAsync(int cityId, int rating, int minPrice, int maxPrice);

@@ -26,7 +26,7 @@ namespace SmartHotel.Services.Hotels.Controllers
                 await _chatsQueries.Get(name);
 
             if (chats.Count() == 0)
-                _logger.LogWarning("City search {0} returned 0 results.", name);
+                _logger.LogWarning("Chat search {0} returned 0 results.", name);
 
             return Ok(chats);
         }

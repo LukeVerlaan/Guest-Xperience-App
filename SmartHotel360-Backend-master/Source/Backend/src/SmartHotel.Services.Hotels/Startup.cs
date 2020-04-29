@@ -56,6 +56,7 @@ namespace SmartHotel.Services.Hotels
             services.AddTransient<ConferenceRoomSearchQuery>();
             services.AddTransient<CitiesQuery>();
             services.AddTransient<ChatsQuery>();
+            services.AddTransient<ShopsQuery>();
 
             services.AddSwaggerGen(c =>
             {

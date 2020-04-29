@@ -105,7 +105,7 @@ namespace SmartHotel.Clients.Core.ViewModels
             {
                 Title = "Shop",
                 MenuItemType = MenuItemType.Shop,
-                ViewModelType = typeof(ShopViewModel),
+                ViewModelType = typeof(ShopListViewModel),
                 IsEnabled = true
             });
 
