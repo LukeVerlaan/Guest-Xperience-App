@@ -1,6 +1,7 @@
-﻿//using SmartHotel.Clients.Core.Models;
+﻿using SmartHotel.Clients.Core.Models;
 using SmartHotel.Clients.Core.ViewModels.Base;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -11,9 +12,11 @@ namespace SmartHotel.Clients.Core.ViewModels
 {
     public class ChatViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        Models.Chat chat;
+        Chat chat;
+        public ObservableCollection<Message> Messages { get; set; } = new ObservableCollection<Message>();
         public string TextToSend { get; set; }
-        
+        public ICommand OnSendCommand { get; set; }
+
         public ChatViewModel()
         {
 
@@ -21,7 +24,7 @@ namespace SmartHotel.Clients.Core.ViewModels
             {
                 if (!string.IsNullOrEmpty(TextToSend))
                 {
-                    chat.Messages.Add(new Models.Message() { Text = TextToSend, User = AppSettings.User?.Name, SendTime = DateTime.Now });
+                    chat.Messages.Add(new Message() { Text = TextToSend, User = AppSettings.User?.Name, SendTime = DateTime.Now });
                     TextToSend = string.Empty;
                 }
 
@@ -30,19 +33,19 @@ namespace SmartHotel.Clients.Core.ViewModels
 
         //public event PropertyChangedEventHandler PropertyChanged;
 
-        public Models.Chat Chat
+        public Chat Chat
         {
             get => chat;
             set => SetProperty(ref chat, value);
         }
 
-        public ICommand OnSendCommand { get; set; }
+
 
         public override Task InitializeAsync(object navigationData)
         {
             if (navigationData != null)
             {
-                Chat = navigationData as Models.Chat;
+                Chat = navigationData as Chat;
             }
 
             return base.InitializeAsync(navigationData);

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 
 namespace SmartHotel.Services.Hotels.Domain.Hotel
 {
@@ -7,7 +7,7 @@ namespace SmartHotel.Services.Hotels.Domain.Hotel
         public int Id { get; set; }
         public int HotelId { get; set; }
         public string Name { get; set; }
-        public List<Message> Messages { get; set; }
+        public ObservableCollection<Message> Messages { get; set; }
 
     }
 }

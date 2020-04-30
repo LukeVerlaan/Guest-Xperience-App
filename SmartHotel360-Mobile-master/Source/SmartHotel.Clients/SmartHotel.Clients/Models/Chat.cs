@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SmartHotel.Clients.Core.Models
 {
@@ -8,7 +9,7 @@ namespace SmartHotel.Clients.Core.Models
 
         public string Name { get; set; }
 
-        public List<Message> Messages { get; set; }
+        public ObservableCollection<Message> Messages { get; set; }
 
         public override string ToString() => $"{Name}";
 
