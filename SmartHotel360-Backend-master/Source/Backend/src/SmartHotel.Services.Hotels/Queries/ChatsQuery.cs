@@ -44,9 +44,9 @@ namespace SmartHotel.Services.Hotels.Queries
         {
             return Task.FromResult(new[]
             {
-                new ChatResult() { Id = 1, Name = "Reception Chat", Messages = new ObservableCollection<Message>{ new Message(){ Text = "Hi", User = "ChatBot", SendTime = DateTime.Now  }, new Message(){ Text = "How are you?", User = "ChatBot", SendTime = DateTime.Now } } },
+                new ChatResult() { Id = 1, Name = "Reception Chat", Messages = new ObservableCollection<Message>{ new Message(){ Text = "Hi", User = "ChatBot", SendTime = DateTime.Now  }, new Message(){ Text = "How are you?", User = "ChatBot", SendTime = DateTime.Now }}},
                 new ChatResult() { Id = 2, Name = "Bar Chat", Messages = new ObservableCollection<Message>{ new Message(){ Text = "Hi", User = "Kevin Bos", SendTime = DateTime.Now  }, new Message(){ Text = "Hey", User = "Jordy Schepers", SendTime = DateTime.Now }}},
-                new ChatResult() { Id = 3,  Name = "Event Chat", Messages = new ObservableCollection<Message>{ new Message(){ Text = "Nice Event", User = "Kevin Bos", SendTime = DateTime.Now  }, new Message(){ Text = "Yes", User = "Jordy Schepers", SendTime = DateTime.Now }}}
+                new ChatResult() { Id = 3, Name = "Event Chat", Messages = new ObservableCollection<Message>{ new Message(){ Text = "Nice Event", User = "Kevin Bos", SendTime = DateTime.Now  }, new Message(){ Text = "Yes", User = "Jordy Schepers", SendTime = DateTime.Now }}}
 
             } as IEnumerable<ChatResult>);
         }

@@ -330,7 +330,10 @@
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
-  <data name="Shop" xml:space="preserve">
-    <value>Shop</value>
+  <data name="Shops" xml:space="preserve">
+    <value>Shops</value>
+  </data>
+  <data name="ShoppingCart" xml:space="preserve">
+    <value>Add To Shopping Cart</value>
   </data>
 </root>

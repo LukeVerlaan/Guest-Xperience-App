@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ctrls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core"  
+    xmlns:templates="clr-namespace:SmartHotel.Clients.Core.Views.Templates;assembly=SmartHotel.Clients.Core"
+    xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation" 
+    xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core"
+    xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core"      
+    xmlns:extensions="clr-namespace:SmartHotel.Clients.Core.MarkupExtensions" 
+    xmlns:local="clr-namespace:SmartHotel.Clients.Core.Helpers"
+    x:Class="SmartHotel.Clients.Core.Views.ProductDetailsView" 
+    utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="EntryTextColor">#48959B</Color>
+            <local:ChatTemplateSelector x:Key="MessageTemplateSelector"/>
+
+            <Style x:Key="ProductTextStyle" 
+                   TargetType="Label"
+                   BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" 
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" 
+                        Value="{StaticResource BigSize}" />
+                <Setter Property="VerticalOptions" 
+                        Value="End" />
+                <Setter Property="Margin" 
+                        Value="48, 0, 0, 12" />
+            </Style>
+
+            <Style x:Key="PriceTextStyle" 
+                   TargetType="Label"
+                   BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" 
+                        Value="{StaticResource BlackTextColor}" />
+                <Setter Property="FontSize" 
+                        Value="{StaticResource LargeSize}" />
+                <Setter Property="VerticalOptions" 
+                        Value="End" />
+                <Setter Property="Margin" 
+                        Value="12, 0, 0, 12" />
+            </Style>
+            
+            <Style x:Key="DescriptionTextStyle" 
+                   TargetType="Label"
+                   BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                <Setter Property="TextColor" 
+                        Value="{StaticResource BlackTextColor}" />
+                <Setter Property="FontSize" 
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="VerticalOptions" 
+                        Value="End" />
+                <Setter Property="Margin" 
+                        Value="12, 0, 0, 12" />
+            </Style>
+
+            <Style x:Key="EntryFrameStyle" 
+                   TargetType="Frame">
+                <Setter Property="Margin"
+                    Value="0, 0, 0, 0" />
+                <Setter Property="HasShadow"
+                    Value="True" />
+                <Setter Property="CornerRadius"
+                    Value="4" />
+                <Setter Property="BackgroundColor" 
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="VerticalOptions"
+                        Value="Fill" />
+                <Setter Property="Padding">
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android, iOS" Value="10, 0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="EntryTextStyle" 
+                   TargetType="Entry">
+                <Setter Property="Keyboard"
+                        Value="Chat" />
+                <Setter Property="FontFamily"
+                        Value="{StaticResource PoppinsRegular}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="BackgroundColor" 
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="TextColor" 
+                        Value="{StaticResource EntryTextColor}" />
+                <Setter Property="HorizontalOptions" 
+                        Value="Fill" />
+                <Setter Property="Opacity" 
+                        Value="1" />
+            </Style>
+
+            <Style x:Key="AddButtonStyle" 
+                   TargetType="Button">
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource OrangeColor}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="CornerRadius"
+                        Value="4" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <!-- Background Image -->
+                <Image 
+                    Aspect="AspectFill"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="Android, iOS" Value="bg_splash" />
+                            <On Platform="UWP" Value="Assets/bg_splash.png" />
+                        </OnPlatform>
+                    </Image.Source>
+                </Image>
+            </Grid>
+
+            <!-- Content -->
+            <Grid Grid.Row="0" 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand" 
+                Margin="10,10,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="8*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Label
+                    Grid.Row="0"
+                    BackgroundColor="Transparent"
+                    Text="{Binding Product.Name}"
+                    Style="{StaticResource ProductTextStyle}"/>
+
+                <!-- Product Image -->
+                <Image
+                    Grid.Row="1"
+                    Aspect="AspectFill">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="Android, iOS" Value="placeholder_2" />
+                            <On Platform="UWP" Value="Assets/placeholder_2.png" />
+                        </OnPlatform>
+                    </Image.Source>
+                </Image>
+                
+                <!-- Scroll View -->
+                <ScrollView
+                    Grid.Row="2"
+                    BackgroundColor="{StaticResource WhiteColor}">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+
+
+
+                        <!-- Price -->
+                        <Label
+                            Grid.Row="0"
+                            Text="{Binding Product.Price}"
+                            Style="{StaticResource PriceTextStyle}"/>
+
+                        <!-- Sizes -->
+
+                        <!-- Quantity -->
+                        <Grid
+                            Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                                Grid.Column="0"/>
+                            <Image
+                                Grid.Column="0">
+                                <Image.Source>
+                                    <OnPlatform x:TypeArguments="ImageSource">
+                                        <On Platform="Android, iOS" Value="minus" />
+                                        <On Platform="UWP" Value="Assets/minus.png" />
+                                    </OnPlatform>
+                                </Image.Source>
+                            </Image>
+                            <Entry
+                                Grid.Column="1"/>
+                            <Button
+                                Grid.Column="2"/>
+                            <Image
+                                Grid.Column="2">
+                                <Image.Source>
+                                    <OnPlatform x:TypeArguments="ImageSource">
+                                        <On Platform="Android, iOS" Value="plus" />
+                                        <On Platform="UWP" Value="Assets/plus.png" />
+                                    </OnPlatform>
+                                </Image.Source>
+                            </Image>
+                        </Grid>
+
+                        <!-- Description -->
+                        <Label
+                            Grid.Row="3"
+                            Text="{Binding Product.Description}"
+                            Style="{StaticResource DescriptionTextStyle}"/>
+
+                    </Grid>
+                </ScrollView>
+
+                <!-- Footer / Add to cart-->
+                <Button
+                    Grid.Row="3"
+                    Text="{extensions:Translate ShoppingCart}"
+                    Style="{StaticResource AddButtonStyle}"
+                    Command="{Binding AddToCartCommand}"/>
+            </Grid>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

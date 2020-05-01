@@ -619,11 +619,20 @@ namespace SmartHotel.Clients.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shop.
+        ///   Looks up a localized string similar to Add To Shopping Cart.
         /// </summary>
-        internal static string Shop {
+        internal static string ShoppingCart {
             get {
-                return ResourceManager.GetString("Shop", resourceCulture);
+                return ResourceManager.GetString("ShoppingCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shops.
+        /// </summary>
+        internal static string Shops {
+            get {
+                return ResourceManager.GetString("Shops", resourceCulture);
             }
         }
         

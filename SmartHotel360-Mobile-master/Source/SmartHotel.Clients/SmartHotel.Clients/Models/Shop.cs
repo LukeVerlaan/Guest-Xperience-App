@@ -10,5 +10,7 @@ namespace SmartHotel.Clients.Core.Models
         public string Name { get; set; }
         public string ShopType { get; set; }
         public List<ShopItem> Items { get; set; }
+
+        public override string ToString() => $"{Name}";
     }
 }

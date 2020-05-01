@@ -1,4 +1,4 @@
-﻿using SmartHotel.Clients.Core.Exceptions;
+﻿using SmartHotel.Clients.Core.Models;
 using SmartHotel.Clients.Core.Services.Analytic;
 using SmartHotel.Clients.Core.Services.DismissKeyboard;
 using SmartHotel.Clients.Core.Services.Hotel;
@@ -7,26 +7,26 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartHotel.Clients.Core.ViewModels
 {
-    public class ShopListViewModel : ViewModelBase
+    public class ShopViewModel : ViewModelBase
     {
         readonly IAnalyticService analyticService;
         readonly IHotelService hotelService;
         readonly IDismissKeyboardService dismissKeyboardService;
 
-        string search;
-        IEnumerable<Models.Shop> shops;
+        Shop shop;
+        string search;        
+        IEnumerable<ShopItem> products;
         IEnumerable<string> suggestions;
         string suggestion;
         bool isNextEnabled;
 
-        public ShopListViewModel(
+        public ShopViewModel(
             IAnalyticService analyticService,
             IHotelService hotelService)
         {
@@ -34,8 +34,14 @@ namespace SmartHotel.Clients.Core.ViewModels
             this.hotelService = hotelService;
             dismissKeyboardService = DependencyService.Get<IDismissKeyboardService>();
 
-            shops = new List<Models.Shop>();
+            products = new List<ShopItem>();
             suggestions = new List<string>();
+        }
+
+        public Shop Shop
+        {
+            get => shop;
+            set => SetProperty(ref shop, value);
         }
 
         public string Search
@@ -78,48 +84,6 @@ namespace SmartHotel.Clients.Core.ViewModels
 
         public ICommand NextCommand => new AsyncCommand(NextAsync);
 
-        public override async Task InitializeAsync(object navigationData)
-        {
-            try
-            {
-                IsBusy = true;
-
-                shops = await hotelService.GetShopsAsync();
-
-                Suggestions = new List<string>(shops.Select(c => c.ToString()));
-            }
-            catch (HttpRequestException httpEx)
-            {
-                Debug.WriteLine($"[Shop Where Step] Error retrieving data: {httpEx}");
-
-                if (!string.IsNullOrEmpty(httpEx.Message))
-                {
-                    await DialogService.ShowAlertAsync(
-                        string.Format(Resources.HttpRequestExceptionMessage, httpEx.Message),
-                        Resources.HttpRequestExceptionTitle,
-                        Resources.DialogOk);
-                }
-            }
-            catch (ConnectivityException cex)
-            {
-                Debug.WriteLine($"[Shop Where Step] Connectivity Error: {cex}");
-                await DialogService.ShowAlertAsync("There is no Internet conection, try again later.", "Error", "Ok");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[Shop Where Step] Error: {ex}");
-
-                await DialogService.ShowAlertAsync(
-                    Resources.ExceptionMessage,
-                    Resources.ExceptionTitle,
-                    Resources.DialogOk);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
         async void FilterAsync(string search)
         {
             try
@@ -127,7 +91,7 @@ namespace SmartHotel.Clients.Core.ViewModels
                 IsBusy = true;
 
                 Suggestions = new List<string>(
-                    shops.Select(c => c.ToString())
+                    products.Select(c => c.ToString())
                            .Where(c => c.ToLowerInvariant().Contains(search.ToLowerInvariant())));
 
                 analyticService.TrackEvent("Filter", new Dictionary<string, string>
@@ -137,7 +101,7 @@ namespace SmartHotel.Clients.Core.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[Shop] Error: {ex}");
+                Debug.WriteLine($"[Booking] Error: {ex}");
                 await DialogService.ShowAlertAsync(Resources.ExceptionMessage, Resources.ExceptionTitle, Resources.DialogOk);
             }
             finally
@@ -146,15 +110,30 @@ namespace SmartHotel.Clients.Core.ViewModels
             }
         }
 
+        public override Task InitializeAsync(object navigationData)
+        {
+            if (navigationData != null)
+            {
+                Shop = navigationData as Shop;
+            }
+
+            products = Shop.Items;
+
+            Suggestions = new List<string>(products.Select(c => c.ToString()));
+
+            return base.InitializeAsync(navigationData);
+        }
+
         Task NextAsync()
         {
-            var shop = shops.FirstOrDefault(c => c.ToString().Equals(Suggestion));
-            if (shop != null)
+            var product = products.FirstOrDefault(c => c.ToString().Equals(Suggestion));
+            if (product != null)
             {
-                return NavigationService.NavigateToAsync<ShopViewModel>(shop);
+                return NavigationService.NavigateToAsync<ProductDetailsViewModel>(product);
             }
             // just return Task, but have to provide an argument because there is no overload
             return Task.FromResult(true);
         }
+
     }
 }

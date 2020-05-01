@@ -46,9 +46,9 @@ namespace SmartHotel.Services.Hotels.Queries
         {
             return Task.FromResult(new[]
             {
-                new ShopResult() { Id = 1, Name = "Jewelz", ShopType = "Jewels", Items = new List<ShopItem>{ new ShopItem(){ Id = 1, ShopId = 1, Name = "Bracelet", Description = "Gold Bracelet" }, new ShopItem(){ Id = 2, ShopId = 1, Name = "Necklace", Description = "Gold Necklace" } } },
-                new ShopResult() { Id = 2, Name = "Clothes", ShopType = "Clothing", Items  = new List<ShopItem>{ new ShopItem() { Id = 1, ShopId = 2, Name = "Shirt", Description = "Red Shirt" }, new ShopItem() { Id = 2, ShopId = 2, Name = "Jeans", Description = "Black Jeans" } }},
-                new ShopResult() { Id = 3,  Name = "Souvenir", ShopType = "Souvenirs", Items = new List<ShopItem>{ new ShopItem() { Id = 1, ShopId = 3, Name = "Magnet", Description = "Magnet with city name" }, new ShopItem() { Id = 2, ShopId = 3, Name = "Figurine", Description = "Stone figurine of a man" } }}
+                new ShopResult() { Id = 1, Name = "Jewelz", ShopType = "Jewels", Items = new List<ShopItem>{ new ShopItem(){ Id = 1, ShopId = 1, Name = "Bracelet", Description = "Gold Bracelet", Price=299.99m, Sizes= new List<string> { "s", "m", "l" } }, new ShopItem(){ Id = 2, ShopId = 1, Name = "Necklace", Description = "Gold Necklace", Price=499.99m, Sizes = new List<string> { "s", "m", "l" } } } },
+                new ShopResult() { Id = 2, Name = "Clothes", ShopType = "Clothing", Items  = new List<ShopItem>{ new ShopItem() { Id = 1, ShopId = 2, Name = "Shirt", Description = "Red Shirt", Price = 49.99m, Sizes = new List<string> { "xs", "s", "m", "l", "xl" } }, new ShopItem() { Id = 2, ShopId = 2, Name = "Jeans", Description = "Black Jeans", Price = 79.99m, Sizes = new List<string> { "xs", "s", "m", "l", "xl" } } }},
+                new ShopResult() { Id = 3,  Name = "Souvenir", ShopType = "Souvenirs", Items = new List<ShopItem>{ new ShopItem() { Id = 1, ShopId = 3, Name = "Magnet", Description = "Magnet with city name", Price = 49.99m }, new ShopItem() { Id = 2, ShopId = 3, Name = "Figurine", Description = "Stone figurine of a man", Price = 49.99m } }}
 
             } as IEnumerable<ShopResult>);
         }

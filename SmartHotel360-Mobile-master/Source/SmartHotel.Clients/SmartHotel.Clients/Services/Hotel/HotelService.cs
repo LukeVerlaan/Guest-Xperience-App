@@ -39,7 +39,7 @@ namespace SmartHotel.Clients.Core.Services.Hotel
         public Task<IEnumerable<Shop>> GetShopsAsync()
         {
             var builder = new UriBuilder(AppSettings.HotelsEndpoint);
-            builder.AppendToPath("shops");
+            builder.AppendToPath("shop");
 
             var uri = builder.ToString();
 
