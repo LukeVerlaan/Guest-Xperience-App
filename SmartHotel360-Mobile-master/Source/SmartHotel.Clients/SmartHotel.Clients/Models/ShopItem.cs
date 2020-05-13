@@ -17,7 +17,7 @@ namespace SmartHotel.Clients.Core.Models
         //public int? VatRate { get; set; }
         //public decimal? PriceIncVat { get; set; }
         //public int? VatRateId { get; set; }
-        public IEnumerable<string> Sizes { get; set; }
+        public IEnumerable<Size> Sizes { get; set; }
         public string Size { get; set; }
         public string Category { get; set; }
         public int Quantity { get; set; }

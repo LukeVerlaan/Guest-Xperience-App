@@ -38,9 +38,9 @@
                 <Setter Property="FontSize" 
                         Value="{StaticResource LargeSize}" />
                 <Setter Property="VerticalOptions" 
-                        Value="End" />
+                        Value="Center" />
                 <Setter Property="Margin" 
-                        Value="12, 0, 0, 12" />
+                        Value="12" />
             </Style>
             
             <Style x:Key="DescriptionTextStyle" 
@@ -51,9 +51,9 @@
                 <Setter Property="FontSize" 
                         Value="{StaticResource MidMediumSize}" />
                 <Setter Property="VerticalOptions" 
-                        Value="End" />
+                        Value="Start" />
                 <Setter Property="Margin" 
-                        Value="12, 0, 0, 12" />
+                        Value="12" />
             </Style>
 
             <Style x:Key="EntryFrameStyle" 
@@ -78,7 +78,7 @@
             <Style x:Key="EntryTextStyle" 
                    TargetType="Entry">
                 <Setter Property="Keyboard"
-                        Value="Chat" />
+                        Value="Numeric" />
                 <Setter Property="FontFamily"
                         Value="{StaticResource PoppinsRegular}" />
                 <Setter Property="FontSize"
@@ -88,6 +88,8 @@
                 <Setter Property="TextColor" 
                         Value="{StaticResource EntryTextColor}" />
                 <Setter Property="HorizontalOptions" 
+                        Value="Fill" />
+                <Setter Property="VerticalOptions"
                         Value="Fill" />
                 <Setter Property="Opacity" 
                         Value="1" />
@@ -164,9 +166,9 @@
 
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="72"/>
+                            <RowDefinition Height="72"/>
+                            <RowDefinition Height="40"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
@@ -176,7 +178,7 @@
                         <!-- Price -->
                         <Label
                             Grid.Row="0"
-                            Text="{Binding Product.Price}"
+                            Text="{Binding Product.Price, StringFormat='€ {0:N}'}"
                             Style="{StaticResource PriceTextStyle}"/>
 
                         <!-- Sizes -->
@@ -186,34 +188,29 @@
                             Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="56"/>
+                                <ColumnDefinition Width="40"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
                             <Button
-                                Grid.Column="0"/>
-                            <Image
-                                Grid.Column="0">
-                                <Image.Source>
-                                    <OnPlatform x:TypeArguments="ImageSource">
-                                        <On Platform="Android, iOS" Value="minus" />
-                                        <On Platform="UWP" Value="Assets/minus.png" />
-                                    </OnPlatform>
-                                </Image.Source>
-                            </Image>
-                            <Entry
-                                Grid.Column="1"/>
+                                Grid.Column="1"
+                                Text="-"
+                                Command="{Binding MinusQuantityCommand}"/>
+                            <ctrls:ButtonFrame  
+                                Grid.Column="2"                    
+                                Style="{StaticResource EntryFrameStyle}">
+
+                                <ctrls:ExtendedEntry
+                                    Text="{Binding Quantity}"
+                                    Style="{StaticResource EntryTextStyle}" 
+                                    LineColor="{StaticResource WhiteColor}"/>
+                            </ctrls:ButtonFrame>
                             <Button
-                                Grid.Column="2"/>
-                            <Image
-                                Grid.Column="2">
-                                <Image.Source>
-                                    <OnPlatform x:TypeArguments="ImageSource">
-                                        <On Platform="Android, iOS" Value="plus" />
-                                        <On Platform="UWP" Value="Assets/plus.png" />
-                                    </OnPlatform>
-                                </Image.Source>
-                            </Image>
+                                Grid.Column="3"
+                                Text="+"
+                                Command="{Binding AddQuantityCommand}" />
                         </Grid>
 
                         <!-- Description -->
@@ -221,6 +218,8 @@
                             Grid.Row="3"
                             Text="{Binding Product.Description}"
                             Style="{StaticResource DescriptionTextStyle}"/>
+                        
+                        <!-- Reviews -->
 
                     </Grid>
                 </ScrollView>
