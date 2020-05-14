@@ -110,6 +110,7 @@ namespace SmartHotel.Clients.Core.ViewModels
             }
         }
 
+        public ICommand HotelSelectedCommand => new Command<Models.ShopItem>(OnSelectProductAsync);
         public override Task InitializeAsync(object navigationData)
         {
             if (navigationData != null)
@@ -133,6 +134,11 @@ namespace SmartHotel.Clients.Core.ViewModels
             }
             // just return Task, but have to provide an argument because there is no overload
             return Task.FromResult(true);
+        }
+
+        async void OnSelectProductAsync(Models.ShopItem item)
+        {
+            await NavigationService.NavigateToAsync<BookingHotelViewModel>(item);
         }
 
     }

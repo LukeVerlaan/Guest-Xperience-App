@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ctrls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core"  
     xmlns:templates="clr-namespace:SmartHotel.Clients.Core.Views.Templates;assembly=SmartHotel.Clients.Core"
+    xmlns:behaviors="clr-namespace:SmartHotel.Clients.Core.Behaviors;assembly=SmartHotel.Clients.Core"
     xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation" 
     xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core"
     xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core"      
@@ -185,102 +186,16 @@
                     <Grid
                         Grid.Row="1">
                         <ListView 
-                            x:Name="Suggestions" 
-                            AutomationId="suggestions"
-                            TranslationY="150"
-                            ItemsSource="{Binding Suggestions}"          
-                            SelectedItem="{Binding Suggestion, Mode=TwoWay}"
-                            Style="{StaticResource SuggestionsListStyle}">
+                        AutomationId="list"
+                        ItemsSource="{Binding Products}"  
+                        CachingStrategy="RecycleElement"
+                        SeparatorVisibility="None"
+                        HasUnevenRows="True" 
+                        behaviors:ItemTappedCommandListView.ItemTappedCommand="{Binding ProductSelectedCommand}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <Grid 
-                                            x:Name="SuggestionCell"
-                                            ColumnSpacing="0"
-                                            BackgroundColor="{StaticResource WhiteColor}">
-                                            <Grid.HeightRequest>
-                                                <OnPlatform x:TypeArguments="x:Double">
-                                                    <On Platform="Android, iOS" Value="60" />
-                                                    <On Platform="UWP" Value="64" />
-                                                </OnPlatform>
-                                            </Grid.HeightRequest>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="12" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="12" />
-                                            </Grid.ColumnDefinitions>
-                                            <Image
-                                                Grid.Column="1" 
-                                                x:Name="SuggestionCorner" 
-                                                Aspect="AspectFit"
-                                                IsVisible="{Binding Source={x:Reference Suggestions}, Path=SelectedItem, 
-                                                Converter={StaticResource SelectedToBoolConverter},
-                                                ConverterParameter={x:Reference SuggestionCell}}"
-                                                Margin="0, 2">
-                                                <Image.Source>
-                                                    <OnPlatform x:TypeArguments="ImageSource">
-                                                        <On Platform="Android, iOS" Value="ball_left" />
-                                                        <On Platform="UWP" Value="Assets/ball_left.png" />
-                                                    </OnPlatform>
-                                                </Image.Source>
-                                            </Image>
-                                            <Image
-                                                Grid.Column="1"
-                                                x:Name="ProductImage">
-                                                <Image.Source>
-                                                    <OnPlatform x:TypeArguments="ImageSource">
-                                                        <On Platform="Android, iOS" Value="ic_be_green_2" />
-                                                        <On Platform="UWP" Value="Assets/ic_be_green_2.png" />
-                                                    </OnPlatform>
-                                                </Image.Source>
-                                            </Image>
-                                            <Grid
-                                                Grid.Column="2" 
-                                                HeightRequest="{Binding Source={x:Reference SuggestionCorner}, Path=HeightRequest}"
-                                                BackgroundColor="{StaticResource SelectedBackgroundColor}"
-                                                IsVisible="{Binding Source={x:Reference Suggestions}, Path=SelectedItem, 
-                                                Converter={StaticResource SelectedToBoolConverter},
-                                                ConverterParameter={x:Reference SuggestionCell}}">
-                                                <Grid.Margin>
-                                                    <OnPlatform x:TypeArguments="Thickness">
-                                                        <On Platform="Android" Value="0, 6" />
-                                                        <On Platform="iOS, UWP" Value="0, 2" />
-                                                    </OnPlatform>
-                                                </Grid.Margin>
-                                            </Grid>
-                                            <!--<Grid
-                                                Grid.Column="2">
-                                                <Label 
-                                                    Text="{Binding}"
-                                                    Style="{StaticResource SuggestionTextStyle}"/>
-                                                <Grid.Margin>
-                                                    <OnPlatform x:TypeArguments="Thickness">
-                                                        <On Platform="Android" Value="0, 6" />
-                                                        <On Platform="iOS, UWP" Value="0, 2" />
-                                                    </OnPlatform>
-                                                </Grid.Margin>
-                                            </Grid>-->
-                                            <Image
-                                                Grid.Column="3" 
-                                                Aspect="AspectFit"
-                                                IsVisible="{Binding Source={x:Reference Suggestions}, Path=SelectedItem, 
-                                                Converter={StaticResource SelectedToBoolConverter},
-                                                ConverterParameter={x:Reference SuggestionCell}}"
-                                                Margin="0, 2">
-                                                <Image.Source>
-                                                    <OnPlatform x:TypeArguments="ImageSource">
-                                                        <On Platform="Android, iOS" Value="ball_right" />
-                                                        <On Platform="UWP" Value="Assets/ball_right.png" />
-                                                    </OnPlatform>
-                                                </Image.Source>
-                                            </Image>
-                                            <Label 
-                                                Grid.Column="2"
-                                                Text="{Binding}"
-                                                Style="{StaticResource SuggestionTextStyle}"/>
-                                        </Grid>
+                                        <templates:HotelItemTemplate />
                                     </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

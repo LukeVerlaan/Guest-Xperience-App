@@ -12,6 +12,7 @@ namespace SmartHotel.Clients.Core.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public int Rating { get; set; }
         //public decimal? PriceExVat { get; set; }
        // public decimal? Vat { get; set; }
         //public int? VatRate { get; set; }
