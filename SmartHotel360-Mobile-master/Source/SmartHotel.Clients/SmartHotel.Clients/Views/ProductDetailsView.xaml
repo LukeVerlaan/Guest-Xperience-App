@@ -197,7 +197,8 @@
                             <Button
                                 Grid.Column="1"
                                 Text="-"
-                                Command="{Binding MinusQuantityCommand}"/>
+                                Command="{Binding MinusQuantityCommand}"
+                                Style="{StaticResource AddButtonStyle}" />
                             <ctrls:ButtonFrame  
                                 Grid.Column="2"                    
                                 Style="{StaticResource EntryFrameStyle}">
@@ -205,12 +206,13 @@
                                 <ctrls:ExtendedEntry
                                     Text="{Binding Quantity}"
                                     Style="{StaticResource EntryTextStyle}" 
-                                    LineColor="{StaticResource WhiteColor}"/>
+                                    LineColor="{StaticResource WhiteColor}" />
                             </ctrls:ButtonFrame>
                             <Button
                                 Grid.Column="3"
                                 Text="+"
-                                Command="{Binding AddQuantityCommand}" />
+                                Command="{Binding AddQuantityCommand}"
+                                Style="{StaticResource AddButtonStyle}" />
                         </Grid>
 
                         <!-- Description -->

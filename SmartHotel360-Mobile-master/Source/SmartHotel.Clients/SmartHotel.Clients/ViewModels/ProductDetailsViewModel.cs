@@ -1,5 +1,6 @@
 ﻿using SmartHotel.Clients.Core.Models;
 using SmartHotel.Clients.Core.Services.Analytic;
+using SmartHotel.Clients.Core.Services.Authentication;
 using SmartHotel.Clients.Core.Services.DismissKeyboard;
 using SmartHotel.Clients.Core.Services.Hotel;
 using SmartHotel.Clients.Core.ViewModels.Base;
@@ -19,15 +20,15 @@ namespace SmartHotel.Clients.Core.ViewModels
         readonly IAnalyticService analyticService;
         readonly IHotelService hotelService;
         readonly IDismissKeyboardService dismissKeyboardService;
+        readonly IAuthenticationService authenticationService;
 
         ShopItem product;
         int quantity = 1;
-        bool isNextEnabled;        
+        bool isNextEnabled;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public ICommand AddQuantityCommand { get; }
-        public ICommand MinusQuantityCommand { get; }
-        public ICommand AddToCartCommand { get; }
+        public ICommand AddQuantityCommand => new Command(AddQuantity);
+        public ICommand MinusQuantityCommand => new Command(MinusQuantity);
+        public ICommand AddToCartCommand => new Command(AddToCartAsync);
 
         public ProductDetailsViewModel(
             IAnalyticService analyticService,
@@ -36,10 +37,6 @@ namespace SmartHotel.Clients.Core.ViewModels
             this.analyticService = analyticService;
             this.hotelService = hotelService;
             dismissKeyboardService = DependencyService.Get<IDismissKeyboardService>();
-
-            MinusQuantityCommand = new Command(MinusQuantity);
-            AddQuantityCommand = new Command(AddQuantity);
-            AddToCartCommand = new Command(AddToCart);
         }
 
         public ShopItem Product
@@ -67,7 +64,6 @@ namespace SmartHotel.Clients.Core.ViewModels
         private void AddQuantity()
         {
             Quantity = Quantity + 1;
-            Console.WriteLine(Product.Description);
         }
 
         private void MinusQuantity()
@@ -78,14 +74,8 @@ namespace SmartHotel.Clients.Core.ViewModels
             }
         }
 
-        private void AddToCart()
+        async Task AddToCartAsync()
         {
-
-        }
-
-        void OnPropertyChanged(string quantity)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(quantity));
         }
 
         public bool IsNextEnabled
@@ -98,7 +88,8 @@ namespace SmartHotel.Clients.Core.ViewModels
         {
             if (navigationData != null)
             {
-                Product = navigationData as ShopItem;
+                var navigationParameter = navigationData as Dictionary<string, object>;
+                Product = navigationParameter["product"] as ShopItem;
             }
 
             return base.InitializeAsync(navigationData);
