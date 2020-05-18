@@ -26,13 +26,11 @@ namespace SmartHotel.Clients.Core.ViewModels
                 {
                     chat.Messages.Add(new Message() { Text = TextToSend, User = AppSettings.User?.Name, SendTime = DateTime.Now });
                     TextToSend = string.Empty;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(TextToSend));
                 }
 
             });
         }
-
-        //public event PropertyChangedEventHandler PropertyChanged;
 
         public Chat Chat
         {

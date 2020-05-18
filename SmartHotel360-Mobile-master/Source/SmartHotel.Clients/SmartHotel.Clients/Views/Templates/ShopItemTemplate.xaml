@@ -85,7 +85,7 @@
                 Grid.Column="0"
                 Grid.Row="0"
                 Grid.RowSpan="5"
-                Source="{Binding Picture, Converter={StaticResource HotelImageConverter}}"
+                Source="{Binding ProductImage, Converter={StaticResource HotelImageConverter}}"
                 Style="{StaticResource ProductImageStyle}">
                 <ffimageloading:CachedImage.LoadingPlaceholder>
                     <OnPlatform x:TypeArguments="ImageSource">
@@ -121,12 +121,6 @@
                 <Label
                     Text="{Binding Price}"
                     Style="{StaticResource ProductRatingTitleStyle}"/>
-                <Label
-                    Text="/"     
-                    Style="{StaticResource ProductRatingSubTitleStyle}"/>
-                <Label
-                    Text="Night"  
-                    Style="{StaticResource ProductRatingSubTitleStyle}"/>
             </StackLayout>
             <controls:RatingControl
                 Grid.Column="1"
