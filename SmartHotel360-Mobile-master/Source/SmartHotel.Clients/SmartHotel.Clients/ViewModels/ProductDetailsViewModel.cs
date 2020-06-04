@@ -1,4 +1,5 @@
 ﻿using SmartHotel.Clients.Core.Models;
+using SmartHotel.Clients.Core.Repository;
 using SmartHotel.Clients.Core.Services.Analytic;
 using SmartHotel.Clients.Core.Services.Authentication;
 using SmartHotel.Clients.Core.Services.DismissKeyboard;
@@ -17,18 +18,23 @@ namespace SmartHotel.Clients.Core.ViewModels
 {
     public class ProductDetailsViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        List<ShopOrderModel> orders;
+        ShopOrderModel order;
+        ShopItem product;
+        Models.Size productSize;
+        int productQuantity = 1;
+        bool isNextEnabled;
+
         readonly IAnalyticService analyticService;
         readonly IHotelService hotelService;
         readonly IDismissKeyboardService dismissKeyboardService;
         readonly IAuthenticationService authenticationService;
 
-        ShopItem product;
-        int quantity = 1;
-        bool isNextEnabled;
+
 
         public ICommand AddQuantityCommand => new Command(AddQuantity);
         public ICommand MinusQuantityCommand => new Command(MinusQuantity);
-        public ICommand AddToCartCommand => new Command(AddToCartAsync);
+        public ICommand AddToCartCommand => new AsyncCommand(AddToCartAsync);
 
         public ProductDetailsViewModel(
             IAnalyticService analyticService,
@@ -39,43 +45,102 @@ namespace SmartHotel.Clients.Core.ViewModels
             dismissKeyboardService = DependencyService.Get<IDismissKeyboardService>();
         }
 
+
+        public ShopOrderModel Order
+        {
+            get => order;
+            set => SetProperty(ref order, value);
+        }
+
         public ShopItem Product
         {
             get => product;
             set => SetProperty(ref product, value);
         }
 
-        public int Quantity
+        public Models.Size ProductSize
         {
-            get => quantity;
+            get => productSize;
+            set => SetProperty(ref productSize, value);
+        }
+
+        public int ProductQuantity
+        {
+            get => productQuantity;
             set
             {
-                if (quantity == value)
+                if (productQuantity == value)
                 {
                     return;
                 }
 
-                quantity = value;
-                OnPropertyChanged(nameof(Quantity));
+                productQuantity = value;
+                OnPropertyChanged(nameof(ProductQuantity));
 
             }
         }
 
         private void AddQuantity()
         {
-            Quantity = Quantity + 1;
+            ProductQuantity = ProductQuantity + 1;
         }
 
         private void MinusQuantity()
         {
-            if(Quantity > 1)
+            if(ProductQuantity > 1)
             {
-                Quantity = Quantity - 1;
+                ProductQuantity = ProductQuantity - 1;
             }
         }
 
         async Task AddToCartAsync()
         {
+            try
+            {
+                orders = await App.Database.GetShopOrdersAsync();
+                if (orders.Count > 0)
+                {
+                    Order = orders.LastOrDefault();
+                }
+                else
+                {
+                    await App.Database.CreateShopOrder();
+                    orders = await App.Database.GetShopOrdersAsync();
+                    Order = orders.LastOrDefault();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[Product Where Step] Error: {ex}");
+
+                await DialogService.ShowAlertAsync(
+                    Resources.ExceptionMessage,
+                    Resources.ExceptionTitle,
+                    Resources.DialogOk);
+            }
+            if (ProductQuantity > 0)
+            {
+                OrderItemModel orderItem = new OrderItemModel
+                {
+                    ShopId = Product.ShopId,
+                    OrderId = Order.OrderId,
+                    ProductImage = Product.ProductImage,
+                    Name = Product.Name,
+                    Description = Product.Description,
+                    Price = Product.Price,
+                    Rating = Product.Rating,
+                    Size = "m",
+                    Category = Product.Category,
+                    Quantity = ProductQuantity
+                };
+                await App.Database.SaveOrderItemAsync(orderItem);
+                bool action = await Application.Current.MainPage.DisplayAlert("Added", "Product has been added to cart", "Stay", "Show cart");
+                if (!action)
+                {
+                    ShowCartAsync();
+                }
+            }
         }
 
         public bool IsNextEnabled
@@ -84,7 +149,7 @@ namespace SmartHotel.Clients.Core.ViewModels
             set => SetProperty(ref isNextEnabled, value);
         }
 
-        public override Task InitializeAsync(object navigationData)
+        public override async  Task InitializeAsync(object navigationData)
         {
             if (navigationData != null)
             {
@@ -92,7 +157,11 @@ namespace SmartHotel.Clients.Core.ViewModels
                 Product = navigationParameter["product"] as ShopItem;
             }
 
-            return base.InitializeAsync(navigationData);
+        }
+
+        Task ShowCartAsync() 
+        { 
+             return NavigationService.NavigateToAsync<ShoppingCartViewModel>();
         }
 
     }

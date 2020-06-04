@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SmartHotel.Clients.Core.Views.Templates.ProductSizesItemTemplate">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="SizeTextStyle" 
+                   TargetType="Label"
+                   BasedOn="{StaticResource FiraSansRegularLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource GreenColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Frame BorderColor="{StaticResource GreenColor}" HorizontalOptions="Center" WidthRequest="40" Padding="4" Margin="4">
+            <Label
+                Text="{Binding Name}"
+                Style="{StaticResource SizeTextStyle}"/>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

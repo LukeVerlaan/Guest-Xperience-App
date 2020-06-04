@@ -1,15 +1,170 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="SmartHotel.Clients.Core.Views.ShoppingCartView">
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SmartHotel.Clients.Core.Views.ShoppingCartView"      
+    xmlns:templates="clr-namespace:SmartHotel.Clients.Core.Views.Templates;assembly=SmartHotel.Clients.Core"
+    xmlns:behaviors="clr-namespace:SmartHotel.Clients.Core.Behaviors;assembly=SmartHotel.Clients.Core"
+    xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core" 
+    xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core"  
+    BackgroundColor="{StaticResource WhiteColor}"    
+    utils:NavigationBarAttachedProperty.TextColor="{StaticResource GreenColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="RangeTextStyle" 
+                   TargetType="Label"
+                   BasedOn="{StaticResource PoppinsSemiBoldLabelStyle}">
+                <Setter Property="TextColor" 
+                        Value="{StaticResource GreenColor}" />
+                <Setter Property="FontSize" 
+                        Value="{StaticResource LittleSize}" />
+                <Setter Property="HorizontalOptions" 
+                        Value="Start" />
+                <Setter Property="VerticalOptions" 
+                        Value="Start" />
+            </Style>
+
+            <Style x:Key="SeparatorStyle" 
+                   TargetType="Grid">
+                <Setter Property="BackgroundColor" 
+                        Value="{StaticResource BlackTextColor}" />
+                <Setter Property="Opacity" 
+                        Value="0.25" />
+                <Setter Property="HeightRequest" 
+                        Value="1" />
+            </Style>
+
+            <Style x:Key="FilterIconStyle" 
+                   TargetType="Grid">
+                <Setter Property="HorizontalOptions" 
+                        Value="Start" />
+                <Setter Property="VerticalOptions" 
+                        Value="Center" />
+                <Setter Property="Margin" 
+                        Value="12, 0" />
+            </Style>
+
+            <Style x:Key="SubmitButtonStyle" 
+                   TargetType="Button">
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource OrangeColor}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="CornerRadius"
+                        Value="4" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid 
+            AutomationId="products"
+            RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <controls:iOSStatusBarBackground 
+                Grid.Row="0"/>
+            <Grid 
+                Grid.Row="1"
+                BackgroundColor="{StaticResource WhiteColor}"
+                RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1" />
+                    <RowDefinition Height="48" />
+                    <RowDefinition Height="1" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackLayout
+                    Grid.Row="0"
+                    Margin="24, 12">
+                    <StackLayout.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android, UWP" Value="24, 12" />
+                            <On Platform="iOS" Value="24, 36, 24, 12" />
+                        </OnPlatform>
+                    </StackLayout.Margin>
+                    <Label 
+                        Grid.Row="0"
+                        Text="{Binding Order.OrderId, StringFormat='#{0}'}"
+                        Style="{StaticResource RangeTextStyle}"/>
+                </StackLayout>
+                <Grid 
+                    Grid.Row="1"
+                    Style="{StaticResource SeparatorStyle}"/>
+                <Grid 
+                    Grid.Row="2"
+                    Padding="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Column="0"
+                        Style="{StaticResource FilterIconStyle}">
+                        <Image.Source>
+                            <OnPlatform x:TypeArguments="ImageSource">
+                                <On Platform="Android, iOS" Value="ic_sort" />
+                                <On Platform="UWP" Value="Assets/ic_sort.png" />
+                            </OnPlatform>
+                        </Image.Source>
+                    </Image>
+                    <Image
+                        Grid.Column="1"
+                        Style="{StaticResource FilterIconStyle}">
+                        <Image.Source>
+                            <OnPlatform x:TypeArguments="ImageSource">
+                                <On Platform="Android, iOS" Value="ic_filter" />
+                                <On Platform="UWP" Value="Assets/ic_filter.png" />
+                            </OnPlatform>
+                        </Image.Source>
+                    </Image>
+                    <Label
+                        Grid.Column="3"
+                        Text="Your Orders" 
+                        TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowOrdersCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+                <Grid 
+                    Grid.Row="3"
+                    Style="{StaticResource SeparatorStyle}"/>
+                <Grid 
+                    Grid.Row="4">
+                    <ListView 
+                        AutomationId="list"
+                        ItemsSource="{Binding Products}"  
+                        CachingStrategy="RecycleElement"
+                        SeparatorVisibility="None"
+                        HasUnevenRows="True" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <templates:ShopItemTemplate />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+                <Button
+                    Grid.Row="5"
+                    Text="Submit Order"
+                    Style="{StaticResource SubmitButtonStyle}"
+                    Command="{Binding SubmitOrderCommand}"/>
+            </Grid>
+            <ActivityIndicator 
+                Grid.RowSpan="2"
+                Color="{StaticResource AccentColor}"
+                IsRunning="{Binding IsBusy}" 
+                IsVisible="{Binding IsBusy}" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

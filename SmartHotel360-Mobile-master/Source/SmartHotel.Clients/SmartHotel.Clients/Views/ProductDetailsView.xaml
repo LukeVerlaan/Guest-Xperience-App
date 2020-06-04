@@ -32,7 +32,7 @@
 
             <Style x:Key="PriceTextStyle" 
                    TargetType="Label"
-                   BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                   BasedOn="{StaticResource FiraSansBoldLabelStyle}">
                 <Setter Property="TextColor" 
                         Value="{StaticResource BlackTextColor}" />
                 <Setter Property="FontSize" 
@@ -40,20 +40,68 @@
                 <Setter Property="VerticalOptions" 
                         Value="Center" />
                 <Setter Property="Margin" 
-                        Value="12" />
+                        Value="12, 0, 0, 0" />
             </Style>
-            
-            <Style x:Key="DescriptionTextStyle" 
+
+            <Style x:Key="RatingStyle" 
+                   TargetType="controls:RatingControl">
+                <Setter Property="HorizontalOptions"
+                        Value="End" />
+                <Setter Property="VerticalOptions"
+                        Value="CenterAndExpand" />
+                <Setter Property="HeightRequest" 
+                        Value="20" />
+                <Setter Property="WidthRequest">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android, iOS" Value="80" />
+                            <On Platform="UWP" Value="100" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Margin">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android, iOS" Value="0, 0, 12, 0" />
+                            <On Platform="UWP" Value="0, 0, 12, 20" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SizesStyle" 
+                   TargetType="controls:HorizontalList">
+                <Setter Property="HorizontalOptions"
+                        Value="CenterAndExpand" />
+                <Setter Property="Margin" 
+                        Value="24, 0" />
+            </Style>
+
+
+            <Style x:Key="DescriptionTitleTextStyle" 
                    TargetType="Label"
-                   BasedOn="{StaticResource PoppinsMediumLabelStyle}">
+                   BasedOn="{StaticResource FiraSansBoldLabelStyle}">
                 <Setter Property="TextColor" 
                         Value="{StaticResource BlackTextColor}" />
                 <Setter Property="FontSize" 
-                        Value="{StaticResource MidMediumSize}" />
+                        Value="{StaticResource LargeSize}" />
                 <Setter Property="VerticalOptions" 
                         Value="Start" />
                 <Setter Property="Margin" 
                         Value="12" />
+            </Style>
+
+            <Style x:Key="DescriptionTextStyle" 
+                   TargetType="Label"
+                   BasedOn="{StaticResource FiraSansRegularLabelStyle}">
+                <Setter Property="TextColor" 
+                        Value="{StaticResource BlackTextColor}" />
+                <Setter Property="FontSize" 
+                        Value="{StaticResource MediumSize}" />
+                <Setter Property="VerticalOptions" 
+                        Value="Start" />
+                <Setter Property="Margin" 
+                        Value="12, 40, 12, 12" />
             </Style>
 
             <Style x:Key="EntryFrameStyle" 
@@ -109,7 +157,9 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Grid>
+        <Grid
+            AutomationId="product"
+            RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -131,8 +181,9 @@
             <!-- Content -->
             <Grid Grid.Row="0" 
                 HorizontalOptions="FillAndExpand" 
-                VerticalOptions="FillAndExpand" 
-                Margin="10,10,10,10">
+                VerticalOptions="FillAndExpand"
+                RowSpacing="0"
+                Margin="0, 10, 0, 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*" />
                     <RowDefinition Height="4*" />
@@ -166,22 +217,50 @@
 
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="72"/>
-                            <RowDefinition Height="72"/>
+                            <RowDefinition Height="48"/>
+                            <RowDefinition Height="48"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-
-
-
 
                         <!-- Price -->
                         <Label
                             Grid.Row="0"
                             Text="{Binding Product.Price, StringFormat='€ {0:N}'}"
                             Style="{StaticResource PriceTextStyle}"/>
+                        
+                        <!-- Rating -->
+                        <controls:RatingControl
+                                Grid.Row="0"
+                                Rating="{Binding Product.Rating}"
+                                Precision="Full"
+                                Style="{StaticResource RatingStyle}">
+                            <controls:RatingControl.ImageFullStar>
+                                <OnPlatform x:TypeArguments="ImageSource">
+                                    <On Platform="Android, iOS" Value="ic_star_active" />
+                                    <On Platform="UWP" Value="Assets/ic_star_active.png" />
+                                </OnPlatform>
+                            </controls:RatingControl.ImageFullStar>
+                            <controls:RatingControl.ImageEmptyStar>
+                                <OnPlatform x:TypeArguments="ImageSource">
+                                    <On Platform="Android, iOS" Value="ic_star_normal" />
+                                    <On Platform="UWP" Value="Assets/ic_star_normal.png" />
+                                </OnPlatform>
+                            </controls:RatingControl.ImageEmptyStar>
+                        </controls:RatingControl>
 
                         <!-- Sizes -->
+                        <controls:HorizontalList 
+                            Grid.Row="1"
+                            ListOrientation="Horizontal" 
+                            ItemsSource="{Binding Product.Sizes}"
+                            Style="{StaticResource SizesStyle}">
+                            <controls:HorizontalList.ItemTemplate>
+                                <DataTemplate>
+                                    <templates:ProductSizesItemTemplate />
+                                </DataTemplate>
+                            </controls:HorizontalList.ItemTemplate>
+                        </controls:HorizontalList>
 
                         <!-- Quantity -->
                         <Grid
@@ -204,7 +283,7 @@
                                 Style="{StaticResource EntryFrameStyle}">
 
                                 <ctrls:ExtendedEntry
-                                    Text="{Binding Quantity}"
+                                    Text="{Binding ProductQuantity}"
                                     Style="{StaticResource EntryTextStyle}" 
                                     LineColor="{StaticResource WhiteColor}" />
                             </ctrls:ButtonFrame>
@@ -215,12 +294,16 @@
                                 Style="{StaticResource AddButtonStyle}" />
                         </Grid>
 
-                        <!-- Description -->
+                        <!-- Description -->                        
+                        <Label
+                            Grid.Row="3"
+                            Text="Description"
+                            Style="{StaticResource DescriptionTitleTextStyle}"/>
                         <Label
                             Grid.Row="3"
                             Text="{Binding Product.Description}"
                             Style="{StaticResource DescriptionTextStyle}"/>
-                        
+
                         <!-- Reviews -->
 
                     </Grid>

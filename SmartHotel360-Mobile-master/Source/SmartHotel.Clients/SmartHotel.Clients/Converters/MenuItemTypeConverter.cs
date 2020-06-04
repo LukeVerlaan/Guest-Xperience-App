@@ -27,6 +27,8 @@ namespace SmartHotel.Clients.Core.Converters
                     return platform ? "Assets/ic_chat.png" : "ic_chat.png";
                 case MenuItemType.Shop:
                     return platform ? "Assets/ic_shop.png" : "ic_shop.png";
+                case MenuItemType.ShoppingCart:
+                    return platform ? "Assets/ic_shop.png" : "ic_shop.png";
                 case MenuItemType.Concierge:
                     return platform ? "Assets/ic_bot.png" : "ic_bot.png";
                 case MenuItemType.Info:

@@ -108,7 +108,7 @@
             <Label
                 Grid.Column="1"
                 Grid.Row="1"
-                Text="{Binding Description}"
+                Text="{Binding Category}"
                 Style="{StaticResource ProductSubTitleStyle}"/>
             <StackLayout
                 Grid.Column="1"

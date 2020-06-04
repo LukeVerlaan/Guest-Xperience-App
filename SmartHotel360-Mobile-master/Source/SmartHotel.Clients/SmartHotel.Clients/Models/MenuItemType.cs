@@ -8,6 +8,7 @@
         Suggestions,
         Chat,
         Shop,
+        ShoppingCart,
         Concierge,
         Info,
         Logout

@@ -10,6 +10,9 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Distribute;
+using SmartHotel.Clients.Core.Services.Database;
+using System.IO;
+using System;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace SmartHotel.Clients
@@ -17,6 +20,19 @@ namespace SmartHotel.Clients
     public partial class App : Application
     {
         public static PublicClientApplication AuthenticationClient { get; set; }
+        static DatabaseService database;
+
+        public static DatabaseService Database
+        {
+            get
+            {
+                if (database == null)
+                {
+                    database = new DatabaseService(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "HotelApp.db3"));
+                }
+                return database;
+            }
+        }
 
         static App()
         {

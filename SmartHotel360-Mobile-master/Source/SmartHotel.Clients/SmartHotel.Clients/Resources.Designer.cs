@@ -716,5 +716,14 @@ namespace SmartHotel.Clients.Core {
                 return ResourceManager.GetString("WindowBlinds", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Orders.
+        /// </summary>
+        internal static string YourOrders {
+            get {
+                return ResourceManager.GetString("YourOrders", resourceCulture);
+            }
+        }
     }
 }

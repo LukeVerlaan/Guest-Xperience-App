@@ -161,6 +161,7 @@ namespace SmartHotel.Clients.Core.Services.Navigation
             mappings.Add(typeof(ProductDetailsViewModel), typeof(ProductDetailsView));
             mappings.Add(typeof(SettingsViewModel<RemoteSettings>), typeof(SettingsView));
             mappings.Add(typeof(ShopListViewModel), typeof(ShopListView));
+            mappings.Add(typeof(ShoppingCartViewModel), typeof(ShoppingCartView));
             mappings.Add(typeof(ShopViewModel), typeof(ShopView));
             mappings.Add(typeof(ExtendedSplashViewModel), typeof(ExtendedSplashView));
 

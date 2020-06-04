@@ -1,6 +1,8 @@
 ﻿using Xamarin.Essentials;
 using SmartHotel.Clients.Core.Models;
 using SmartHotel.Clients.Core.Utils;
+using System;
+using System.IO;
 
 namespace SmartHotel.Clients.Core
 {

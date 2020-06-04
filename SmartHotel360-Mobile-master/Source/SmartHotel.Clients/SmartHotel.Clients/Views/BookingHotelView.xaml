@@ -164,7 +164,8 @@
                 </Setter>
             </Style>
 
-            <Color x:Key="NextButtonColor">#BD4B14</Color>
+            <Color x:Key="NextButtonColor">#1132ce</Color>
+            <!--<Color x:Key="NextButtonColor">#BD4B14</Color>-->
 
             <Style x:Key="ParallaxScrollStyle" 
                    TargetType="ScrollView">

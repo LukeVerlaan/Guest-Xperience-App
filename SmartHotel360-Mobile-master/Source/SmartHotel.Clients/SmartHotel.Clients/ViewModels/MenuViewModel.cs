@@ -111,6 +111,14 @@ namespace SmartHotel.Clients.Core.ViewModels
 
             MenuItems.Add(new Models.MenuItem
             {
+                Title = "Shopping Cart",
+                MenuItemType = MenuItemType.ShoppingCart,
+                ViewModelType = typeof(ShoppingCartViewModel),
+                IsEnabled = true
+            });
+
+            MenuItems.Add(new Models.MenuItem
+            {
                 Title = "Concierge",
                 MenuItemType = MenuItemType.Concierge,
                 IsEnabled = true

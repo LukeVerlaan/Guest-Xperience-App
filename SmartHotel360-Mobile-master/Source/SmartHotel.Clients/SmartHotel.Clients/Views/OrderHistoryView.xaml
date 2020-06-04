@@ -8,7 +8,7 @@
     xmlns:controls="clr-namespace:SmartHotel.Clients.Core.Controls;assembly=SmartHotel.Clients.Core"
     xmlns:utils="clr-namespace:SmartHotel.Clients.Core.Utils;assembly=SmartHotel.Clients.Core"      
     xmlns:extensions="clr-namespace:SmartHotel.Clients.Core.MarkupExtensions"
-    x:Class="SmartHotel.Clients.Core.Views.BookingView" 
+    x:Class="SmartHotel.Clients.Core.Views.OrderHistoryView" 
     utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -24,7 +24,7 @@
 
             <Color x:Key="SearchTextColor">#48959B</Color>
 
-            <Style x:Key="WhereTextStyle" 
+            <Style x:Key="OrdersTextStyle" 
                    TargetType="Label"
                    BasedOn="{StaticResource PoppinsMediumLabelStyle}">
                 <Setter Property="TextColor" 
@@ -139,7 +139,7 @@
     </ContentPage.Triggers>
     <ContentPage.Content>
         <Grid   
-            AutomationId="booking"
+            AutomationId="shop"
             RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -168,8 +168,8 @@
                 </Image>
                 <Label 
                     Grid.Row="0"
-                    Text="{extensions:Translate Where}"
-                    Style="{StaticResource WhereTextStyle}"/>
+                    Text="{extensions:Translate YourOrders}"
+                    Style="{StaticResource OrdersTextStyle}"/>
                 <!-- Search results -->
                 <Grid
                     BackgroundColor="{StaticResource WhiteColor}"
