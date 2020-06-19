@@ -12,6 +12,7 @@
                    TargetType="Label"
                    BasedOn="{StaticResource PoppinsSemiBoldLabelStyle}">
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <!--<Setter Property="TextColor" Value="{StaticResource DarkBlueColor}" />-->
                 <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
             </Style>
 
@@ -19,6 +20,7 @@
                    TargetType="Label"
                    BasedOn="{StaticResource PoppinsSemiBoldLabelStyle}">
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <!--<Setter Property="TextColor" Value="{StaticResource DarkBlueColor}" />-->
                 <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
             </Style>
 
@@ -27,6 +29,7 @@
                    BasedOn="{StaticResource FiraSansRegularLabelStyle}">
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <!--<Setter Property="TextColor" Value="{StaticResource DarkBlueColor}" />-->
                 <Setter Property="LineBreakMode" Value="WordWrap" />
                 <Setter Property="Opacity" Value="0.8" />
             </Style>
@@ -47,6 +50,8 @@
                     <OnPlatform x:TypeArguments="ImageSource">
                         <On Platform="Android, iOS" Value="hero_image" />
                         <On Platform="UWP" Value="Assets/hero_image.png" />
+                        <!--<On Platform="Android, iOS" Value="bg_home_opacity" />
+                        <On Platform="UWP" Value="Assets/bg_home_opacity.png" />-->                        
                     </OnPlatform>
                 </ffimageloading:CachedImage.Source>
             </ffimageloading:CachedImage>

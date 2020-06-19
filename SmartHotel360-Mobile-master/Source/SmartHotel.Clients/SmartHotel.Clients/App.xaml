@@ -14,7 +14,9 @@
             <Color x:Key="BlackColor">#000000</Color>
             <Color x:Key="BlackTextColor">#253748</Color>
             <Color x:Key="BlueColor">#0072C6</Color>
+            <Color x:Key="DarkBlueColor">#134a91</Color>
             <Color x:Key="LightBlueColor">#66CCFF</Color>
+            <Color x:Key="BrownColor">#413535</Color>
             <Color x:Key="GreenColor">#368F94</Color>
             <Color x:Key="OrangeColor">#1132ce</Color>
             <!--<Color x:Key="OrangeColor">#BC4C1B</Color>-->

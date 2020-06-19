@@ -251,13 +251,15 @@
 
                         <!-- Sizes -->
                         <controls:HorizontalList 
+                            x:Name="Sizes"
                             Grid.Row="1"
                             ListOrientation="Horizontal" 
                             ItemsSource="{Binding Product.Sizes}"
+                            SelectedItem="{Binding Size}"
                             Style="{StaticResource SizesStyle}">
                             <controls:HorizontalList.ItemTemplate>
                                 <DataTemplate>
-                                    <templates:ProductSizesItemTemplate />
+                                    <templates:ProductSizesItemTemplate/>
                                 </DataTemplate>
                             </controls:HorizontalList.ItemTemplate>
                         </controls:HorizontalList>

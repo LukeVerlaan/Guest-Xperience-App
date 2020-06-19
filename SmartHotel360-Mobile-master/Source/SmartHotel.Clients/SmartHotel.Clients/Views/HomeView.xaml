@@ -147,6 +147,8 @@
                             <OnPlatform x:TypeArguments="ImageSource">
                                 <On Platform="Android, iOS" Value="hero_image" />
                                 <On Platform="UWP" Value="Assets/hero_image.png" />
+                                <!--<On Platform="Android, iOS" Value="bg_home_opacity" />
+                                <On Platform="UWP" Value="Assets/bg_home_opacity.png" />-->
                             </OnPlatform>
                         </Image.Source>
                     </Image>
@@ -175,9 +177,17 @@
                             <OnPlatform x:TypeArguments="ImageSource">
                                 <On Platform="Android, iOS" Value="simbol_logo" />
                                 <On Platform="UWP" Value="Assets/simbol_logo.png" />
+                                <!--<On Platform="Android, iOS" Value="simbol_logo_blue" />
+                                <On Platform="UWP" Value="Assets/simbol_logo_blue.png" />-->
                             </OnPlatform>
                         </Image.Source>
                     </Image>
+                    <Label Text="East Lane Park Hotel"
+                           FontSize="{StaticResource BigSize}"
+                           TextColor="{StaticResource WhiteColor}"
+                           VerticalOptions="Start"
+                           HorizontalOptions="Center"
+                           Margin="0, 100, 0, 30"/>
                 </Grid>
                 <!-- NO BOOKING -->
                 <Grid
@@ -294,8 +304,15 @@
                     <Grid
                         Grid.Row="1"
                         Grid.Column="1"
-                        RowSpacing="0">
-                        <ffimageloading:CachedImage  
+                        RowSpacing="0"
+                        BackgroundColor="{StaticResource OrangeColor}">
+                        <Label
+                            Text="Chat"
+                            TextColor="{StaticResource WhiteColor}"
+                            FontSize="{StaticResource LargeSize}"
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="CenterAndExpand"/>
+                        <!--<ffimageloading:CachedImage  
                             Aspect="AspectFill">
                             <ffimageloading:CachedImage.Source>
                                 <OnPlatform x:TypeArguments="ImageSource">
@@ -303,7 +320,7 @@
                                     <On Platform="UWP" Value="Assets/img_3.png" />
                                 </OnPlatform>
                             </ffimageloading:CachedImage.Source>
-                        </ffimageloading:CachedImage>
+                        </ffimageloading:CachedImage>-->
                     </Grid>
                 </Grid>
                 <!-- BOOKING -->
@@ -427,7 +444,31 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <ffimageloading:CachedImage  
+                        <Grid Grid.Row="0"
+                              BackgroundColor="{StaticResource GrayColor}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="75*"/>
+                                <RowDefinition Height="25*"/>
+                            </Grid.RowDefinitions>
+                            <ffimageloading:CachedImage  
+                                Grid.Row="0"
+                                Margin="20">
+                                <ffimageloading:CachedImage.Source>
+                                    <OnPlatform x:TypeArguments="ImageSource">
+                                        <On Platform="Android, iOS" Value="ic_shop" />
+                                        <On Platform="UWP" Value="Assets/ic_shop.png" />
+                                    </OnPlatform>
+                                </ffimageloading:CachedImage.Source>
+                            </ffimageloading:CachedImage>
+                            <Label
+                                Grid.Row="1"
+                                Text="Shop"                                
+                                TextColor="{StaticResource BlackTextColor}"
+                                FontSize="{StaticResource LargeSize}"
+                                HorizontalOptions="CenterAndExpand"
+                                VerticalOptions="CenterAndExpand"/>
+                        </Grid>
+                        <!--<ffimageloading:CachedImage  
                             Grid.Row="0"
                             Aspect="AspectFill">
                             <ffimageloading:CachedImage.Source>
@@ -436,12 +477,15 @@
                                     <On Platform="UWP" Value="Assets/img_3.png" />
                                 </OnPlatform>
                             </ffimageloading:CachedImage.Source>
-                        </ffimageloading:CachedImage>
+                        </ffimageloading:CachedImage>-->
                         <Grid   
                             Grid.Row="1"
                             Style="{StaticResource BookConferencePanel2Style}">
-                            <Label      
+                            <!--<Label      
                                 Text="{extensions:Translate BookConferenceMayus}"
+                                Style="{StaticResource BookTextStyle}"/>-->
+                            <Label      
+                                Text="CHAT"
                                 Style="{StaticResource BookTextStyle}"/>
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer 
