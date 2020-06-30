@@ -67,18 +67,22 @@ namespace SmartHotel.Clients.Core.ViewModels.Base
             containerBuilder.RegisterType<ChatViewModel>();
             containerBuilder.RegisterType<CheckoutViewModel>();
             containerBuilder.RegisterType<HomeViewModel>();
+            containerBuilder.RegisterType<HotelListViewModel>();
             containerBuilder.RegisterType<InfoViewModel>();
             containerBuilder.RegisterType<LoginViewModel>();
+            containerBuilder.RegisterType<LogonViewModel>();
             containerBuilder.RegisterType<MainViewModel>();
             containerBuilder.RegisterType<MenuViewModel>();
             containerBuilder.RegisterType<MyRoomViewModel>();
             containerBuilder.RegisterType<NotificationsViewModel>();
             containerBuilder.RegisterType<OpenDoorViewModel>();
+            containerBuilder.RegisterType<OrderHistoryViewModel>();
             containerBuilder.RegisterType<ProductDetailsViewModel>();
             containerBuilder.RegisterType<ShopListViewModel>();
             containerBuilder.RegisterType<ShoppingCartViewModel>();
             containerBuilder.RegisterType<ShopViewModel>();
             containerBuilder.RegisterType<SuggestionsViewModel>();
+            containerBuilder.RegisterType<VerificationViewModel>();
 
             containerBuilder.RegisterType(typeof(SettingsViewModel<RemoteSettings>));
             containerBuilder.RegisterType<ExtendedSplashViewModel>();

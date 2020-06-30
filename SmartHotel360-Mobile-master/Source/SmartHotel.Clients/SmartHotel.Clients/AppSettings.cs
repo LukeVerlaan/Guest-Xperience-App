@@ -21,6 +21,8 @@ namespace SmartHotel.Clients.Core
         static string defaultNotificationsEndpoint;
         static string defaultSettingsFileUrl;
 
+        static string oldHotelsEndpoint;
+
         // Endpoints
         const string defaultImagesBaseUri = "https://sh360imgdev.blob.core.windows.net";
         const string defaultRoomDevicesEndpoint = "";
@@ -47,6 +49,7 @@ namespace SmartHotel.Clients.Core
         // Fakes
         const bool defaultUseFakes = false;
 
+        const string oldRoot = "api.sbit.staging.enixe.com/api/";
         const string root = "https://backend.smarthotel360.com/";
 
         static AppSettings()
@@ -60,6 +63,8 @@ namespace SmartHotel.Clients.Core
             //defaultNotificationsEndpoint = $"{root}notifications-api";
             defaultNotificationsEndpoint = "http://192.168.2.9:6105/";
             defaultSettingsFileUrl = $"{root}configuration-api/cfg/aks";
+
+            oldHotelsEndpoint = $"{oldRoot}";
 		}
 
         // Azure B2C settings
@@ -93,6 +98,12 @@ namespace SmartHotel.Clients.Core
         {
             get => Preferences.Get(nameof(HotelsEndpoint), defaultHotelsEndpoint);
             set => Preferences.Set(nameof(HotelsEndpoint), value);
+        }
+
+        public static string OldHotelsEndpoint
+        {
+            get => Preferences.Get(nameof(OldHotelsEndpoint), oldHotelsEndpoint);
+            set => Preferences.Set(nameof(OldHotelsEndpoint), value);
         }
 
         public static string SuggestionsEndpoint

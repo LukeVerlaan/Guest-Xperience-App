@@ -16,6 +16,26 @@ namespace SmartHotel.Clients.Core.Services.Hotel
             this.requestService = requestService;
         }
 
+        public Task<string> PostLoginAsync(string roomNumber, string lastName)
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("guest/Authenticate");
+
+            var uri = builder.ToString();
+
+            return requestService.PostAsync<string>(uri, roomNumber, lastName);
+        }
+
+        public Task<string> PostChatAsync(string roomNumber, string lastName)
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("guest/Authenticate");
+
+            var uri = builder.ToString();
+
+            return requestService.PostAsync<string>(uri, roomNumber, lastName);
+        }
+
         public Task<IEnumerable<City>> GetCitiesAsync()
         {
             var builder = new UriBuilder(AppSettings.HotelsEndpoint);
@@ -116,6 +136,116 @@ namespace SmartHotel.Clients.Core.Services.Hotel
             var uri = builder.ToString();
 
             return requestService.GetAsync<IEnumerable<Service>>(uri);
+        }
+
+        public Task<IEnumerable<OldHotel>> GetOldHotelsAsync()
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("hotel");
+            
+            var uri = builder.ToString();
+            
+            return requestService.GetAsync<IEnumerable<OldHotel>>(uri);
+        }
+
+        public Task<IEnumerable<RoomType>> GetRoomTypesAsync()
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("roomtype");
+
+            var uri = builder.ToString();
+
+            return requestService.GetAsync<IEnumerable<RoomType>>(uri);
+        }
+
+        public Task<IEnumerable<ServiceGroup>> GetServiceGroupsAsync()
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("servicegroup");
+
+            var uri = builder.ToString();
+
+            return requestService.GetAsync<IEnumerable<ServiceGroup>>(uri);
+        }
+
+        public Task<IEnumerable<OldService>> GetOldServicesAsync()
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("service");
+
+            var uri = builder.ToString();
+
+            return requestService.GetAsync<IEnumerable<OldService>>(uri);
+        }
+
+        public Task<IEnumerable<ServiceOption>> GetServiceOptionsAsync()
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("serviceoption");
+
+            var uri = builder.ToString();
+
+            return requestService.GetAsync<IEnumerable<ServiceOption>>(uri);
+        }
+
+        public Task<IEnumerable<HotelShopService>> GetHotelShopServicesAsync()
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("hotelshopservice");
+
+            var uri = builder.ToString();
+
+            return requestService.GetAsync<IEnumerable<HotelShopService>>(uri);
+        }
+
+        public Task<IEnumerable<HotelShopServiceOption>> GetHotelShopServiceOptionsAsync()
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("hotelshopserviceoption");
+
+            var uri = builder.ToString();
+
+            return requestService.GetAsync<IEnumerable<HotelShopServiceOption>>(uri);
+        }
+
+        public Task<IEnumerable<HotelEventService>> GetHotelEventServicesAsync()
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("hoteleventservice");
+
+            var uri = builder.ToString();
+
+            return requestService.GetAsync<IEnumerable<HotelEventService>>(uri);
+        }
+
+        public Task<IEnumerable<HotelEventServiceOption>> GetHotelEventServiceOptionsAsync()
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("hoteleventserviceoption");
+
+            var uri = builder.ToString();
+
+            return requestService.GetAsync<IEnumerable<HotelEventServiceOption>>(uri);
+        }
+
+        public Task<IEnumerable<RestaurantService>> GetRestaurantServicesAsync()
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("restaurantservice");
+
+            var uri = builder.ToString();
+
+            return requestService.GetAsync<IEnumerable<RestaurantService>>(uri);
+        }
+
+        public Task<IEnumerable<RestaurantServiceOption>> GetRestaurantServiceOptionsAsync()
+        {
+            var builder = new UriBuilder(AppSettings.OldHotelsEndpoint);
+            builder.AppendToPath("restaurantserviceoption");
+
+            var uri = builder.ToString();
+
+            return requestService.GetAsync<IEnumerable<RestaurantServiceOption>>(uri);
         }
     }
 }

@@ -103,6 +103,14 @@ namespace SmartHotel.Clients.Core.ViewModels
 
             MenuItems.Add(new Models.MenuItem
             {
+                Title = "Events",
+                MenuItemType = MenuItemType.Events,
+                ViewModelType = typeof(EventListViewModel),
+                IsEnabled = true
+            });
+
+            MenuItems.Add(new Models.MenuItem
+            {
                 Title = "Shop",
                 MenuItemType = MenuItemType.Shop,
                 ViewModelType = typeof(ShopListViewModel),
@@ -134,9 +142,26 @@ namespace SmartHotel.Clients.Core.ViewModels
 
             MenuItems.Add(new Models.MenuItem
             {
+                Title = "Account",
+                MenuItemType = MenuItemType.Account,
+                ViewModelType = typeof(InfoViewModel),
+                IsEnabled = true
+            });
+
+            MenuItems.Add(new Models.MenuItem
+            {
                 Title = "Logout",
                 MenuItemType = MenuItemType.Logout,
                 ViewModelType = typeof(LoginViewModel),
+                IsEnabled = true,
+                AfterNavigationAction = RemoveUserCredentials
+            });
+
+            MenuItems.Add(new Models.MenuItem
+            {
+                Title = "Test",
+                MenuItemType = MenuItemType.Test,
+                ViewModelType = typeof(HotelListViewModel),
                 IsEnabled = true,
                 AfterNavigationAction = RemoveUserCredentials
             });

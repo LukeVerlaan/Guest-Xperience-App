@@ -1,4 +1,5 @@
 ﻿using SmartHotel.Clients.Core.Models;
+using SmartHotel.Clients.Core.Services.Chats;
 using SmartHotel.Clients.Core.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -12,24 +13,33 @@ namespace SmartHotel.Clients.Core.ViewModels
 {
     public class ChatViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        Chat chat;
+        private Chat chat;
         public ObservableCollection<Message> Messages { get; set; } = new ObservableCollection<Message>();
-        public string TextToSend { get; set; }
+        private string textToSend;
         public ICommand OnSendCommand { get; set; }
 
-        public ChatViewModel()
+        private IChatService _chatService;
+
+        public ChatViewModel(IChatService chatService)
         {
 
-            OnSendCommand = new Command(() =>
-            {
-                if (!string.IsNullOrEmpty(TextToSend))
-                {
-                    chat.Messages.Add(new Message() { Text = TextToSend, User = AppSettings.User?.Name, SendTime = DateTime.Now });
-                    TextToSend = string.Empty;
-                    OnPropertyChanged(nameof(TextToSend));
-                }
+            _chatService = chatService;
 
-            });
+            OnSendCommand = new Command(SendExecute);
+
+            _chatService.OnMessageReceived += OnMessageReceived;
+            _chatService.ConnectAsync();
+
+            //OnSendCommand = new Command(() =>
+            //{
+            //    if (!string.IsNullOrEmpty(TextToSend))
+            //    {
+            //        chat.Messages.Add(new Message() { Text = textToSend, User = AppSettings.User?.Name, SendTime = DateTime.Now });
+            //        textToSend = string.Empty;
+            //        OnPropertyChanged(nameof(textToSend));
+            //    }
+
+            //});
         }
 
         public Chat Chat
@@ -38,6 +48,29 @@ namespace SmartHotel.Clients.Core.ViewModels
             set => SetProperty(ref chat, value);
         }
 
+        public string TextToSend
+        {
+            get => textToSend;
+            set => SetProperty(ref textToSend, value);
+        }
+
+        private void OnMessageReceived(object sender, Message message)
+        {
+            Chat.Messages.Add(message);
+        }
+
+        private async void SendExecute()
+        {
+            var message = new Message
+            {
+                User = AppSettings.User?.Name,
+                Text = TextToSend
+            };
+
+            await _chatService.SendMessage(message);
+
+            TextToSend = string.Empty;
+        }
 
 
         public override Task InitializeAsync(object navigationData)

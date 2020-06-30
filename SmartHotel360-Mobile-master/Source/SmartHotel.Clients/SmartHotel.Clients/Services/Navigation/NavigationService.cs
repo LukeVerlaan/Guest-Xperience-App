@@ -152,17 +152,21 @@ namespace SmartHotel.Clients.Core.Services.Navigation
             mappings.Add(typeof(ChatListViewModel), typeof(ChatListView));
             mappings.Add(typeof(ChatViewModel), typeof(ChatView));
             mappings.Add(typeof(CheckoutViewModel), typeof(CheckoutView));
+            mappings.Add(typeof(HotelListViewModel), typeof(HotelListView));
             mappings.Add(typeof(InfoViewModel), typeof(InfoView));
             mappings.Add(typeof(LoginViewModel), typeof(LoginView));
+            mappings.Add(typeof(LogonViewModel), typeof(LogonView));
             mappings.Add(typeof(MainViewModel), typeof(MainView));
             mappings.Add(typeof(MyRoomViewModel), typeof(MyRoomView));
             mappings.Add(typeof(NotificationsViewModel), typeof(NotificationsView));
             mappings.Add(typeof(OpenDoorViewModel), typeof(OpenDoorView));
+            mappings.Add(typeof(OrderHistoryViewModel), typeof(OrderHistoryView));
             mappings.Add(typeof(ProductDetailsViewModel), typeof(ProductDetailsView));
             mappings.Add(typeof(SettingsViewModel<RemoteSettings>), typeof(SettingsView));
             mappings.Add(typeof(ShopListViewModel), typeof(ShopListView));
             mappings.Add(typeof(ShoppingCartViewModel), typeof(ShoppingCartView));
             mappings.Add(typeof(ShopViewModel), typeof(ShopView));
+            mappings.Add(typeof(VerificationViewModel), typeof(VerificationView));
             mappings.Add(typeof(ExtendedSplashViewModel), typeof(ExtendedSplashView));
 
             if (Device.Idiom == TargetIdiom.Desktop)

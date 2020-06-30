@@ -7,10 +7,14 @@
         MyRoom,
         Suggestions,
         Chat,
+        Events,
+        Restaurant,
         Shop,
         ShoppingCart,
         Concierge,
         Info,
-        Logout
+        Account,
+        Logout,
+        Test
     }
 }

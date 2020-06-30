@@ -11,6 +11,8 @@ namespace SmartHotel.Clients.Core.Services.Authentication
 
         Task<bool> LoginAsync(string email, string password);
 
+        Task<bool> VerificationAsync(string verificationCode);
+
         Task<bool> LoginWithMicrosoftAsync();
 
         Task<bool> UserIsAuthenticatedAndValidAsync();

@@ -17,6 +17,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using SmartHotel.Services.Hotels.Services;
+using SmartHotel.Services.Hotels.Hubs;
 
 namespace SmartHotel.Services.Hotels
 {
@@ -101,7 +102,7 @@ namespace SmartHotel.Services.Hotels
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
 
-
+            services.AddSignalR();
             return services.BuildServiceProvider();
         }
 
@@ -153,6 +154,10 @@ namespace SmartHotel.Services.Hotels
                     });
             });
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
             app.UseMvc();
         }
     }

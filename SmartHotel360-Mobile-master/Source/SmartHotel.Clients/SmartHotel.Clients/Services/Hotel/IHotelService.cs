@@ -24,5 +24,27 @@ namespace SmartHotel.Clients.Core.Services.Hotel
         Task<IEnumerable<Models.Service>> GetHotelServicesAsync();
 
         Task<IEnumerable<Models.Service>> GetRoomServicesAsync();
+
+        Task<IEnumerable<Models.OldHotel>> GetOldHotelsAsync();
+
+        Task<IEnumerable<Models.RoomType>> GetRoomTypesAsync();
+
+        Task<IEnumerable<Models.ServiceGroup>> GetServiceGroupsAsync();
+
+        Task<IEnumerable<Models.OldService>> GetOldServicesAsync();
+
+        Task<IEnumerable<Models.ServiceOption>> GetServiceOptionsAsync();
+
+        Task<IEnumerable<Models.HotelShopService>> GetHotelShopServicesAsync();
+
+        Task<IEnumerable<Models.HotelShopServiceOption>> GetHotelShopServiceOptionsAsync();
+
+        Task<IEnumerable<Models.HotelEventService>> GetHotelEventServicesAsync();
+
+        Task<IEnumerable<Models.HotelEventServiceOption>> GetHotelEventServiceOptionsAsync();
+
+        Task<IEnumerable<Models.RestaurantService>> GetRestaurantServicesAsync();
+
+        Task<IEnumerable<Models.RestaurantServiceOption>> GetRestaurantServiceOptionsAsync();
     }
 }

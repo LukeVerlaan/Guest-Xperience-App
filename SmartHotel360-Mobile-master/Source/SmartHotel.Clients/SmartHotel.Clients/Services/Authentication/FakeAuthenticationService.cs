@@ -32,6 +32,22 @@ namespace SmartHotel.Clients.Core.Services.Authentication
             return succeeded;
         }
 
+        public async Task<bool> VerificationAsync(string verificationCode)
+        {
+            await Task.Delay(500);
+
+            var succeeded = true;
+
+            if (verificationCode.StartsWith("1"))
+            {
+                succeeded = false;
+            }
+
+            authSucceded = succeeded;
+
+            return succeeded;
+        }
+
         public Task<bool> LoginWithMicrosoftAsync() => Task.FromResult(false);
 
         public Task<bool> UserIsAuthenticatedAndValidAsync() => Task.FromResult(IsAuthenticated);

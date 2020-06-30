@@ -367,6 +367,15 @@ namespace SmartHotel.Clients.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hotels.
+        /// </summary>
+        internal static string Hotels {
+            get {
+                return ResourceManager.GetString("Hotels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Communication error: {0}.
         /// </summary>
         internal static string HttpRequestExceptionMessage {
@@ -417,6 +426,15 @@ namespace SmartHotel.Clients.Core {
         internal static string IoTError_DataType {
             get {
                 return ResourceManager.GetString("IoTError_DataType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        internal static string LastName {
+            get {
+                return ResourceManager.GetString("LastName", resourceCulture);
             }
         }
         
@@ -565,6 +583,15 @@ namespace SmartHotel.Clients.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Room Number.
+        /// </summary>
+        internal static string RoomNumber {
+            get {
+                return ResourceManager.GetString("RoomNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rooms.
         /// </summary>
         internal static string Rooms {
@@ -696,6 +723,15 @@ namespace SmartHotel.Clients.Core {
         internal static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verification Code.
+        /// </summary>
+        internal static string VerificationCode {
+            get {
+                return ResourceManager.GetString("VerificationCode", resourceCulture);
             }
         }
         
